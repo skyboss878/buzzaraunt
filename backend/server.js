@@ -8,6 +8,10 @@ const authRoutes = require('./routes/auth');
 const protectedRoutes = require('./routes/protected');
 
 const app = express();
+const cors = require("cors");
+app.use(cors({ origin: "https://buzzaraunt.netlify.app", credentials: true }));
+const cors = require("cors");
+app.use(cors({ origin: "https://buzzaraunt.netlify.app", credentials: true }));
 const PORT = process.env.PORT || 4000;
 
 // ✅ Middleware setup
