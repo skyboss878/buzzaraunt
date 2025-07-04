@@ -86,7 +86,7 @@ if (!allowedPlans.includes(plan)) {
     document.getElementById('orderId').textContent = orderId;
 
     async function fetchOrderStatus() {
-      const res = await fetch('/api/orders/status?orderId=' + orderId);
+      const res = await fetch('https://buzzaraunt.onrender.com/api/orders/status?orderId=' + orderId);
       const data = await res.json();
 
       if (data.success) {

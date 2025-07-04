@@ -10,7 +10,7 @@
   <div class="max-w-6xl mx-auto p-8">
     <h1 class="text-4xl font-bold text-center text-yellow-600 mb-10">🍽️ Buzzaraunt Pricing Plans</h1>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div id="plans" class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
       <!-- Basic Plan -->
       <div class="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition text-center">
@@ -23,7 +23,7 @@
           <li>❌ No AI video/voiceover</li>
           <li>❌ No delivery tools</li>
         </ul>
-        <div id="paypal-button-container-P-26P54410G50146132NBTTQ7Y"></div>
+        <div id="paypal-basic"></div>
       </div>
 
       <!-- Pro Plan -->
@@ -37,7 +37,7 @@
           <li>✅ Post scheduling tools</li>
           <li>❌ Delivery dashboard</li>
         </ul>
-        <div id="paypal-button-container-P-9TE454589N1916526NBTTSLA"></div>
+        <div id="paypal-pro"></div>
       </div>
 
       <!-- Enterprise Plan -->
@@ -51,36 +51,30 @@
           <li>✅ White-label branding</li>
           <li>✅ Priority support</li>
         </ul>
-        <div id="paypal-button-container-P-9FM40680D9173120ANBTTTVQ"></div>
+        <div id="paypal-enterprise"></div>
       </div>
 
     </div>
   </div>
 
-  <!-- PayPal SDK -->
-  <script src="https://www.paypal.com/sdk/js?client-id=ATYlT9p6S96zZq0t-_SF0CGjwTr29mHE0YyW2TacuJ6QxjnEcznv5TwE6bXhxkEbILf8P5i9rqZz5-SZ&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+  <!-- Only ONE PayPal SDK Script -->
+  <script src="https://www.paypal.com/sdk/js?client-id=ATYlT9p6S96zZq0t-_SF0CGjwTr29mHE0YyW2TacuJ6QxjnEcznv5TwE6bXhxkEbILf8P5i9rqZz5-SZ&vault=true&intent=subscription"></script>
 
   <script>
-    // Basic
-    paypal.Buttons({
-      style: { shape: 'rect', color: 'gold', layout: 'vertical', label: 'subscribe' },
-      createSubscription: (data, actions) => actions.subscription.create({ plan_id: 'P-26P54410G50146132NBTTQ7Y' }),
-      onApprove: data => alert('Basic Plan Subscribed! ID: ' + data.subscriptionID)
-    }).render('#paypal-button-container-P-26P54410G50146132NBTTQ7Y');
+    const plans = [
+      { id: 'paypal-basic', planId: 'P-26P54410G50146132NBTTQ7Y', name: 'Basic' },
+      { id: 'paypal-pro', planId: 'P-9TE454589N1916526NBTTSLA', name: 'Pro' },
+      { id: 'paypal-enterprise', planId: 'P-9FM40680D9173120ANBTTTVQ', name: 'Enterprise' }
+    ];
 
-    // Pro
-    paypal.Buttons({
-      style: { shape: 'rect', color: 'gold', layout: 'vertical', label: 'subscribe' },
-      createSubscription: (data, actions) => actions.subscription.create({ plan_id: 'P-9TE454589N1916526NBTTSLA' }),
-      onApprove: data => alert('Pro Plan Subscribed! ID: ' + data.subscriptionID)
-    }).render('#paypal-button-container-P-9TE454589N1916526NBTTSLA');
-
-    // Enterprise
-    paypal.Buttons({
-      style: { shape: 'rect', color: 'gold', layout: 'vertical', label: 'subscribe' },
-      createSubscription: (data, actions) => actions.subscription.create({ plan_id: 'P-9FM40680D9173120ANBTTTVQ' }),
-      onApprove: data => alert('Enterprise Plan Subscribed! ID: ' + data.subscriptionID)
-    }).render('#paypal-button-container-P-9FM40680D9173120ANBTTTVQ');
+    plans.forEach(({ id, planId, name }) => {
+      paypal.Buttons({
+        style: { shape: 'rect', color: 'gold', layout: 'vertical', label: 'subscribe' },
+        createSubscription: (data, actions) => actions.subscription.create({ plan_id: planId }),
+        onApprove: data => alert(`${name} Plan Subscribed! ID: ${data.subscriptionID}`)
+      }).render(`#${id}`);
+    });
   </script>
 </body>
 </html>
+

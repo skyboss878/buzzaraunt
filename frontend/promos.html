@@ -81,7 +81,7 @@ if (!allowedPlans.includes(plan)) {
       const token = localStorage.getItem('token');
       if (!token) return;
 
-      const res = await fetch('/api/promos', {
+      const res = await fetch('https://buzzaraunt.onrender.com/api/promos', {
         headers: { Authorization: \`Bearer \${token}\` }
       });
 
