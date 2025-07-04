@@ -17,31 +17,62 @@
       <div class="bg-white p-6 rounded-lg shadow text-center">
         <h3 class="text-xl font-bold mb-2">Basic</h3>
         <p class="text-gray-600 mb-4">$9/month</p>
-        <a href="https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-26P54410G50146132NBTTQ7Y" target="_blank">
-          <button class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 w-full">Subscribe to Basic</button>
-        </a>
+        <div id="paypal-button-container-P-26P54410G50146132NBTTQ7Y"></div>
       </div>
 
       <!-- Pro Plan -->
       <div class="bg-white p-6 rounded-lg shadow text-center">
         <h3 class="text-xl font-bold mb-2">Pro</h3>
         <p class="text-gray-600 mb-4">$19/month</p>
-        <a href="https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-9TE454589N1916526NBTTSLA" target="_blank">
-          <button class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 w-full">Subscribe to Pro</button>
-        </a>
+        <div id="paypal-button-container-P-9TE454589N1916526NBTTSLA"></div>
       </div>
 
       <!-- Enterprise Plan -->
       <div class="bg-white p-6 rounded-lg shadow text-center">
         <h3 class="text-xl font-bold mb-2">Enterprise</h3>
         <p class="text-gray-600 mb-4">$99/month</p>
-        <a href="https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-9FM40680D9173120ANBTTTVQ" target="_blank">
-          <button class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 w-full">Subscribe to Enterprise</button>
-        </a>
+        <div id="paypal-button-container-P-9FM40680D9173120ANBTTTVQ"></div>
       </div>
 
     </div>
   </div>
+
+  <!-- PayPal SDK Script (Include Once) -->
+  <script src="https://www.paypal.com/sdk/js?client-id=ATYlT9p6S96zZq0t-_SF0CGjwTr29mHE0YyW2TacuJ6QxjnEcznv5TwE6bXhxkEbILf8P5i9rqZz5-SZ&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+
+  <script>
+    // BASIC $9
+    paypal.Buttons({
+      style: { shape: 'rect', color: 'gold', layout: 'vertical', label: 'subscribe' },
+      createSubscription: function (data, actions) {
+        return actions.subscription.create({ plan_id: 'P-26P54410G50146132NBTTQ7Y' });
+      },
+      onApprove: function (data, actions) {
+        alert('Basic Plan Subscribed! ID: ' + data.subscriptionID);
+      }
+    }).render('#paypal-button-container-P-26P54410G50146132NBTTQ7Y');
+
+    // PRO $19
+    paypal.Buttons({
+      style: { shape: 'rect', color: 'gold', layout: 'vertical', label: 'subscribe' },
+      createSubscription: function (data, actions) {
+        return actions.subscription.create({ plan_id: 'P-9TE454589N1916526NBTTSLA' });
+      },
+      onApprove: function (data, actions) {
+        alert('Pro Plan Subscribed! ID: ' + data.subscriptionID);
+      }
+    }).render('#paypal-button-container-P-9TE454589N1916526NBTTSLA');
+
+    // ENTERPRISE $99
+    paypal.Buttons({
+      style: { shape: 'rect', color: 'gold', layout: 'vertical', label: 'subscribe' },
+      createSubscription: function (data, actions) {
+        return actions.subscription.create({ plan_id: 'P-9FM40680D9173120ANBTTTVQ' });
+      },
+      onApprove: function (data, actions) {
+        alert('Enterprise Plan Subscribed! ID: ' + data.subscriptionID);
+      }
+    }).render('#paypal-button-container-P-9FM40680D9173120ANBTTTVQ');
+  </script>
 </body>
 </html>
-
