@@ -127,5 +127,13 @@ if (!allowedPlans.includes(plan)) {
   }
 
   </script>
+<script>
+const user = JSON.parse(localStorage.getItem("user"));
+const allowedPlans = ["basic","pro","enterprise"];
+if (!user || !allowedPlans.includes(user.plan)) {
+alert("🚫 Access denied: Please subscribe to a plan.");
+window.location.href = "pricing.html";
+}
+</script>
 </body>
 </html>
