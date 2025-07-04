@@ -1,0 +1,36 @@
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #fefce8; /* Soft yellow for Buzzaraunt */
+  color: #1f2937; /* Neutral dark text */
+}
+
+h1, h2, h3 {
+  color: #b45309; /* Warm buzz-orange headers */
+}
+
+button {
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+button:hover {
+  transform: scale(1.02);
+}
+
+input, select, textarea {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+
+a {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.bg-buzz {
+  background-color: #facc15; /* Buzzaraunt yellow */
+}
+
+.text-buzz {
+  color: #b45309; /* Buzzaraunt orange */
+}
