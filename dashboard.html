@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  const plan = localStorage.getItem("userPlan");
+
+  document.addEventListener("DOMContentLoaded", () => {
+
+    if (plan === "basic") {
+
+      document.getElementById("promoBtn").style.display = "none";
+
+      document.getElementById("storeBtn").style.display = "none";
+
+    }
+
+    if (plan !== "agency") {
+
+      document.getElementById("deliveryBtn").style.display = "none";
+
+    }
+
+  });
+
+const allowedPlans = ["basic", "pro", "enterprise"];
+const plan = localStorage.getItem("buzz_plan");
+if (!allowedPlans.includes(plan)) {
+  alert("🚫 You must subscribe to access this feature.");
+  window.location.href = "pricing.html";
+}
+</script>
+<!-- SEO Meta Tags -->
+
+<meta name="description" content="Buzzaraunt – The AI-powered restaurant marketing & online ordering platform" />
+
+<meta name="keywords" content="restaurant marketing, AI menu, food delivery, online ordering, social media promos" />
+
+<meta name="author" content="Buzzaraunt AI" />
+
+
+
+<!-- Open Graph / Facebook -->
+
+<meta property="og:title" content="Buzzaraunt – AI Marketing for Restaurants" />
+
+<meta property="og:description" content="Create viral promos, schedule AI-powered posts, and manage online orders from one dashboard." />
+
+<meta property="og:image" content="https://buzzaraunt.com/og-image.jpg" />
+
+<meta property="og:url" content="https://buzzaraunt.com" />
+
+<meta property="og:type" content="website" />
+
+
+
+<!-- Twitter -->
+
+<meta name="twitter:card" content="summary_large_image" />
+
+<meta name="twitter:title" content="Buzzaraunt – AI for Restaurants" />
+
+<meta name="twitter:description" content="Your full-service AI marketing and ordering solution." />
+
+<meta name="twitter:image" content="https://buzzaraunt.com/twitter-preview.jpg" />
+
+
+
+<!-- Favicon -->
+
+<link rel="icon" type="image/png" href="favicon.png" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buzzaraunt Dashboard</title>
+  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" />
+<link rel="stylesheet" href="styles/styles.css" />
+</head>
+<body class="bg-gray-50 text-gray-900">
+<script>
+  const plan = localStorage.getItem("userPlan");
+
+  document.addEventListener("DOMContentLoaded", () => {
+
+    if (plan === "basic") {
+
+      document.getElementById("promoBtn").style.display = "none";
+
+      document.getElementById("storeBtn").style.display = "none";
+
+    }
+
+    if (plan !== "agency") {
+
+      document.getElementById("deliveryBtn").style.display = "none";
+
+    }
+
+  });
+
+
+  const plan = localStorage.getItem("userPlan");
+
+  if (!["pro", "agency"].includes(plan)) {
+
+    alert("🚫 Upgrade to Pro or Agency to use this feature.");
+
+    window.location.href = "pricing.html";
+
+  }
+
+</script>
+
+  <div class="max-w-4xl mx-auto p-6">
+    <h1 class="text-4xl font-bold text-yellow-600 mb-6">🍽️ Buzzaraunt Dashboard</h1>
+    <p class="mb-4 text-gray-700">Welcome to your restaurant's control center. Use the tools below to grow your brand with AI promotions and scheduling.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      
+      <!-- Link to Generate New Promo -->
+      <a href="promo.html" class="block bg-yellow-100 hover:bg-yellow-200 rounded-lg p-6 shadow transition">
+        <h2 class="text-2xl font-semibold mb-2">🎯 Generate Promo</h2>
+        <p>Create viral posts with AI including voiceovers, captions, music, images and hashtags.</p>
+      </a>
+
+      <!-- Link to View Scheduled Promos -->
+      <a href="promos.html" class="block bg-purple-100 hover:bg-purple-200 rounded-lg p-6 shadow transition">
+        <h2 class="text-2xl font-semibold mb-2">📅 Scheduled Promos</h2>
+        <p>View, manage, and delete your upcoming AI-powered promotional posts.</p>
+      </a>
+
+    </div>
+
+    <div class="mt-10 text-sm text-gray-500">
+      Logged in as: <span id="userEmail">demo@buzzaraunt.com</span> |
+      <button onclick="logout()" class="text-red-600 underline">Logout</button>
+    </div>
+  </div>
+
+  <script>
+  const plan = localStorage.getItem("userPlan");
+
+  document.addEventListener("DOMContentLoaded", () => {
+
+    if (plan === "basic") {
+
+      document.getElementById("promoBtn").style.display = "none";
+
+      document.getElementById("storeBtn").style.display = "none";
+
+    }
+
+    if (plan !== "agency") {
+
+      document.getElementById("deliveryBtn").style.display = "none";
+
+    }
+
+  });
+
+    // This can be updated with actual user email if needed
+    function logout() {
+      localStorage.removeItem('token');
+      alert("You’ve been logged out.");
+      location.reload();
+    }
+  </script>
+
+</body>
+</html>

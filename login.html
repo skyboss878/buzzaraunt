@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- SEO Meta Tags -->
+
+<meta name="description" content="Buzzaraunt – The AI-powered restaurant marketing & online ordering platform" />
+
+<meta name="keywords" content="restaurant marketing, AI menu, food delivery, online ordering, social media promos" />
+
+<meta name="author" content="Buzzaraunt AI" />
+
+
+
+<!-- Open Graph / Facebook -->
+
+<meta property="og:title" content="Buzzaraunt – AI Marketing for Restaurants" />
+
+<meta property="og:description" content="Create viral promos, schedule AI-powered posts, and manage online orders from one dashboard." />
+
+<meta property="og:image" content="https://buzzaraunt.com/og-image.jpg" />
+
+<meta property="og:url" content="https://buzzaraunt.com" />
+
+<meta property="og:type" content="website" />
+
+
+
+<!-- Twitter -->
+
+<meta name="twitter:card" content="summary_large_image" />
+
+<meta name="twitter:title" content="Buzzaraunt – AI for Restaurants" />
+
+<meta name="twitter:description" content="Your full-service AI marketing and ordering solution." />
+
+<meta name="twitter:image" content="https://buzzaraunt.com/twitter-preview.jpg" />
+
+
+
+<!-- Favicon -->
+
+<link rel="icon" type="image/png" href="favicon.png" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login – Buzzaraunt</title>
+  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" />
+<link rel="stylesheet" href="styles/styles.css" />
+</head>
+<body class="bg-yellow-50 flex items-center justify-center min-h-screen">
+
+  <form id="loginForm" class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+    <h2 class="text-2xl font-bold mb-6 text-center text-yellow-600">Welcome Back to Buzzaraunt</h2>
+
+    <label class="block mb-2 text-sm font-medium">Email</label>
+    <input type="email" name="email" required class="w-full p-2 border rounded mb-4" />
+
+    <label class="block mb-2 text-sm font-medium">Password</label>
+    <input type="password" name="password" required class="w-full p-2 border rounded mb-6" />
+
+    <button type="submit" class="w-full bg-yellow-500 text-white py-2 rounded hover:bg-yellow-600 font-semibold">Login</button>
+
+    <p class="mt-4 text-center text-sm">Don't have an account? <a href="register.html" class="text-yellow-700 underline">Register</a></p>
+  </form>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const result = await res.json();
+      if (result.success) {
+        alert('Login successful!');
+        window.location.href = '/dashboard.html';
+      } else {
+        alert(result.message || 'Login failed');
+      }
+    });
+  </script>
+</body>
+</html>
+EOF

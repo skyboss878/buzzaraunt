@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- SEO Meta Tags -->
+
+<meta name="description" content="Buzzaraunt – The AI-powered restaurant marketing & online ordering platform" />
+
+<meta name="keywords" content="restaurant marketing, AI menu, food delivery, online ordering, social media promos" />
+
+<meta name="author" content="Buzzaraunt AI" />
+
+
+
+<!-- Open Graph / Facebook -->
+
+<meta property="og:title" content="Buzzaraunt – AI Marketing for Restaurants" />
+
+<meta property="og:description" content="Create viral promos, schedule AI-powered posts, and manage online orders from one dashboard." />
+
+<meta property="og:image" content="https://buzzaraunt.com/og-image.jpg" />
+
+<meta property="og:url" content="https://buzzaraunt.com" />
+
+<meta property="og:type" content="website" />
+
+
+
+<!-- Twitter -->
+
+<meta name="twitter:card" content="summary_large_image" />
+
+<meta name="twitter:title" content="Buzzaraunt – AI for Restaurants" />
+
+<meta name="twitter:description" content="Your full-service AI marketing and ordering solution." />
+
+<meta name="twitter:image" content="https://buzzaraunt.com/twitter-preview.jpg" />
+
+
+
+<!-- Favicon -->
+
+<link rel="icon" type="image/png" href="favicon.png" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Create Your Restaurant – Buzzaraunt</title>
+  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" />
+<link rel="stylesheet" href="styles/styles.css" />
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+  <div class="max-w-4xl mx-auto p-6 bg-white shadow-xl rounded-xl mt-10">
+    <h1 class="text-3xl font-bold text-yellow-600 mb-6">🍽️ Create Your Restaurant Profile</h1>
+
+    <!-- Restaurant Info -->
+    <form id="restaurantForm" class="space-y-4">
+      <div>
+        <label class="block font-semibold">Restaurant Name</label>
+        <input type="text" name="name" required class="w-full p-2 border rounded" />
+      </div>
+
+      <div>
+        <label class="block font-semibold">Description</label>
+        <textarea name="description" rows="2" class="w-full p-2 border rounded"></textarea>
+      </div>
+
+      <div>
+        <label class="block font-semibold">Upload Logo</label>
+        <input type="file" name="logo" accept="image/*" class="w-full p-2 border rounded" />
+        <img id="logoPreview" class="mt-2 max-h-24 hidden" />
+      </div>
+
+      <div>
+        <label class="block font-semibold">Hours of Operation</label>
+        <textarea name="hours" rows="2" placeholder="Mon–Fri: 8am–10pm" class="w-full p-2 border rounded"></textarea>
+      </div>
+
+      <div>
+        <label class="block font-semibold">Website (optional)</label>
+        <input type="url" name="website" class="w-full p-2 border rounded" />
+      </div>
+
+      <button type="submit" class="w-full bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded font-semibold">Save Restaurant</button>
+    </form>
+
+    <!-- Menu Builder -->
+    <div class="mt-10">
+      <h2 class="text-2xl font-bold text-gray-800 mb-2">🧾 Build Your Menu</h2>
+      <form id="menuForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input type="text" name="item" placeholder="Item Name" required class="p-2 border rounded" />
+        <input type="text" name="price" placeholder="$ Price" required class="p-2 border rounded" />
+        <textarea name="description" placeholder="Short description" class="col-span-2 p-2 border rounded"></textarea>
+        <button type="submit" class="col-span-2 bg-green-500 hover:bg-green-600 text-white py-2 rounded font-semibold">Add to Menu</button>
+      </form>
+
+      <ul id="menuPreview" class="mt-6 space-y-2 bg-gray-50 p-4 rounded text-sm text-black">
+        <!-- Menu items appear here -->
+      </ul>
+
+      <button id="finishBtn" class="mt-8 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Finish Setup</button>
+    </div>
+  </div>
+
+  <script>
+    const restaurantForm = document.getElementById('restaurantForm');
+    const menuForm = document.getElementById('menuForm');
+    const menuPreview = document.getElementById('menuPreview');
+    const logoInput = restaurantForm.querySelector('input[name="logo"]');
+    const logoPreview = document.getElementById('logoPreview');
+    const finishBtn = document.getElementById('finishBtn');
+
+    let restaurantId = localStorage.getItem('restaurantId');
+    const userId = localStorage.getItem('userId'); // should be saved after login
+
+    // Show image preview
+    logoInput.addEventListener('change', function () {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          logoPreview.src = e.target.result;
+          logoPreview.classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Submit restaurant profile
+    restaurantForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const formData = new FormData(restaurantForm);
+
+      const payload = {
+        userId,
+        name: formData.get('name'),
+        description: formData.get('description'),
+        hours: formData.get('hours'),
+        website: formData.get('website')
+      };
+
+      const res = await fetch('/api/restaurant/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await res.json();
+      if (result.success) {
+        alert('Restaurant saved!');
+        restaurantId = result.restaurantId;
+        localStorage.setItem('restaurantId', restaurantId);
+      } else {
+        alert(result.message || 'Failed to save restaurant');
+      }
+    });
+
+    // Submit menu items
+    menuForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const formData = new FormData(menuForm);
+      const item = formData.get('item');
+      const price = formData.get('price');
+      const description = formData.get('description');
+
+      if (!restaurantId) return alert('Please save restaurant info first.');
+
+      const res = await fetch('/api/menu/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ restaurantId, item, price, description })
+      });
+
+      const result = await res.json();
+      if (result.success) {
+        const li = document.createElement('li');
+        li.textContent = `${item} – $${price} — ${description}`;
+        menuPreview.appendChild(li);
+        menuForm.reset();
+      } else {
+        alert('Failed to add menu item.');
+      }
+    });
+
+    // Finish setup
+    finishBtn.addEventListener('click', () => {
+      if (restaurantId) {
+        window.location.href = '/dashboard.html';
+      } else {
+        alert('Please complete your restaurant profile first.');
+      }
+    });
+  </script>
+
+</body>
+</html>
+EOF
