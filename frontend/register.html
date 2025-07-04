@@ -71,18 +71,22 @@
 
     <p class="mt-4 text-center text-sm">Already have an account? <a href="login.html" class="text-yellow-700 underline">Login</a></p>
   </form>
+<script>
+  document.getElementById('registerForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData.entries());
 
-  <script>
-    document.getElementById('registerForm').addEventListener('submit', async function (e) {
-      e.preventDefault();
-      const formData = new FormData(this);
-      const data = Object.fromEntries(formData.entries());
-
-      const res = await fetch('/api/auth/register', {
+    try {
+      const res = await fetch('https://buzzaraunt.onrender.com/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
 
       const result = await res.json();
       if (result.success) {
@@ -91,8 +95,12 @@
       } else {
         alert(result.message || 'Registration failed');
       }
-    });
-  </script>
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Connection failed. Please check your internet connection and try again.');
+    }
+  });
+</script>
 </body>
 </html>
 EOF
