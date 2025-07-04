@@ -83,7 +83,7 @@ if (!allowedPlans.includes(plan)) {
     }
 
     async function loadOrders() {
-      const res = await fetch('http://localhost:4000/api/orders', {
+      const res = await fetch('https://buzzaraunt.onrender.com/api/orders', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
 
