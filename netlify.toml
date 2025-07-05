@@ -1,0 +1,22 @@
+[build]
+  command = "npm run build"
+  publish = "build"
+
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"
+  
+  [plugins.inputs]
+    # Run Lighthouse on these URLs
+    urls = [
+      "https://buzzaraunt.netlify.app",
+      "https://buzzaraunt.netlify.app/promos"
+    ]
+    
+    # Performance thresholds (0-100)
+    thresholds = { performance = 80, accessibility = 90, best-practices = 85, seo = 85 }
+    
+    # Test both desktop and mobile
+    preset = "mobile"
+    
+    # Fail build if thresholds not met (optional)
+    fail_on_error = false
