@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Buzzaraunt – The AI-powered restaurant marketing & online ordering platform" />
+  <meta name="keywords" content="restaurant marketing, AI menu, food delivery, online ordering, social media promos" />
+  <meta name="author" content="Buzzaraunt AI" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Buzzaraunt – AI Marketing for Restaurants" />
+  <meta property="og:description" content="Create viral promos, schedule AI-powered posts, and manage online orders from one dashboard." />
+  <meta property="og:image" content="https://buzzaraunt.com/og-image.jpg" />
+  <meta property="og:url" content="https://buzzaraunt.com" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Buzzaraunt – AI for Restaurants" />
+  <meta name="twitter:description" content="Your full-service AI marketing and ordering solution." />
+  <meta name="twitter:image" content="https://buzzaraunt.com/twitter-preview.jpg" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Create Account – Buzzaraunt</title>
+  
+  <!-- Tailwind CSS -->
+  <link rel="preload" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"></noscript>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+    
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><circle cx="200" cy="200" r="3" fill="rgba(255,255,255,0.1)"/><circle cx="800" cy="300" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="400" cy="600" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="700" cy="800" r="3" fill="rgba(255,255,255,0.1)"/></svg>');
+      animation: float 20s infinite linear;
+      pointer-events: none;
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    .glass-card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .input-group {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    
+    .input-group input, .input-group select {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.9);
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+    
+    .input-group input:focus, .input-group select:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      transform: translateY(-2px);
+    }
+    
+    .input-group label {
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 0 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #64748b;
+      transition: all 0.3s ease;
+      pointer-events: none;
+      border-radius: 4px;
+    }
+    
+    .input-group input:focus + label,
+    .input-group input:not(:placeholder-shown) + label,
+    .input-group select:focus + label {
+      top: -0.5rem;
+      font-size: 0.8rem;
+      color: #667eea;
+      font-weight: 600;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+    
+    .btn-primary:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .btn-primary:hover:before {
+      left: 100%;
+    }
+    
+    .logo-section {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .logo-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    }
+    
+    .feature-badges {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    
+    .badge {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .plan-selector {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .plan-option {
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: white;
+    }
+    
+    .plan-option:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+    
+    .plan-option.active {
+      background: rgba(255, 255, 255, 0.9);
+      color: #667eea;
+      border-color: #667eea;
+    }
+    
+    .plan-name {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .plan-price {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+    
+    .loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+    
+    .loading::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      border: 2px solid transparent;
+      border-top: 2px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      transform: translate(-50%, -50%);
+    }
+    
+    @keyframes spin {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+    
+    .social-login {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .social-btn {
+      flex: 1;
+      background: white;
+      color: #64748b;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      padding: 0.75rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    
+    .social-btn:hover {
+      background: #f8fafc;
+      transform: translateY(-2px);
+    }
+    
+    .divider {
+      position: relative;
+      text-align: center;
+      margin: 2rem 0;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.9rem;
+    }
+    
+    .divider::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .divider span {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 0 1rem;
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+
+  <div class="glass-card rounded-3xl p-8 w-full max-w-lg">
+    <div class="logo-section">
+      <div class="logo-icon">
+        🍽️
+      </div>
+      <h1 class="text-3xl font-bold text-white mb-2">Join Buzzaraunt</h1>
+      <p class="text-white text-opacity-80 mb-4">AI-powered restaurant marketing platform</p>
+    </div>
+
+    <div class="feature-badges">
+      <div class="badge">✨ AI Marketing</div>
+      <div class="badge">📊 Analytics</div>
+      <div class="badge">🚀 Free Trial</div>
+    </div>
+
+    <div class="social-login">
+      <button type="button" class="social-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        Google
+      </button>
+      <button type="button" class="social-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        Facebook
+      </button>
+    </div>
+
+    <div class="divider">
+      <span>or create account</span>
+    </div>
+
+    <form id="registerForm">
+      <div class="input-group">
+        <input type="email" name="email" placeholder=" " required />
+        <label>Business Email</label>
+      </div>
+
+      <div class="input-group">
+        <input type="password" name="password" placeholder=" " required />
+        <label>Password</label>
+      </div>
+
+      <div class="input-group">
+        <input type="text" name="restaurantName" placeholder=" " required />
+        <label>Restaurant Name</label>
+      </div>
+
+      <div class="plan-selector">
+        <div class="plan-option active" data-plan="basic">
+          <div class="plan-name">Basic</div>
+          <div class="plan-price">Free Trial</div>
+        </div>
+        <div class="plan-option" data-plan="pro">
+          <div class="plan-name">Pro</div>
+          <div class="plan-price">$29/month</div>
+        </div>
+        <div class="plan-option" data-plan="enterprise">
+          <div class="plan-name">Agency</div>
+          <div class="plan-price">$99/month</div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-primary w-full">
+        Start Free Trial
+      </button>
+
+      <p class="mt-6 text-center text-white text-opacity-80">
+        Already have an account? 
+        <a href="login.html" class="text-white font-semibold hover:underline">Sign in here</a>
+      </p>
+    </form>
+  </div>
+
+<script>
+  // Plan selector functionality
+  const planOptions = document.querySelectorAll('.plan-option');
+  let selectedPlan = 'basic';
+  
+  planOptions.forEach(option => {
+    option.addEventListener('click', () => {
+      planOptions.forEach(opt => opt.classList.remove('active'));
+      option.classList.add('active');
+      selectedPlan = option.dataset.plan;
+    });
+  });
+
+  // Form submission
+  document.getElementById('registerForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    submitBtn.classList.add('loading');
+    submitBtn.textContent = 'Creating Account...';
+    
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData.entries());
+    data.planType = selectedPlan;
+
+    try {
+      const res = await fetch('https://buzzaraunt.onrender.com/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+
+      const result = await res.json();
+      if (result.success) {
+        // Save user data
+        if (result.userId) {
+          localStorage.setItem('userId', result.userId);
+        }
+        if (result.token) {
+          localStorage.setItem('token', result.token);
+        }
+        if (result.user) {
+          localStorage.setItem('user', JSON.stringify(result.user));
+        }
+        
+        // Success animation
+        submitBtn.textContent = '✅ Account Created!';
+        submitBtn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+        
+        setTimeout(() => {
+          window.location.href = '/restauraunt.html';
+        }, 1500);
+      } else {
+        throw new Error(result.message || 'Registration failed');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      submitBtn.textContent = '❌ Try Again';
+      submitBtn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+      
+      setTimeout(() => {
+        submitBtn.classList.remove('loading');
+        submitBtn.textContent = 'Start Free Trial';
+        submitBtn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+      }, 3000);
+    }
+  });
+
+  // Input animations
+  const inputs = document.querySelectorAll('input');
+  inputs.forEach(input => {
+    input.addEventListener('focus', () => {
+      input.parentElement.style.transform = 'scale(1.02)';
+    });
+    
+    input.addEventListener('blur', () => {
+      input.parentElement.style.transform = 'scale(1)';
+    });
+  });
+</script>
+</body>
+</html>

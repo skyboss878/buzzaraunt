@@ -4,77 +4,75 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Buzzaraunt Pricing</title>
-  <link rel="stylesheet" href="styles/output.css" />
+  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" />
+  <link rel="stylesheet" href="styles/styles.css" />
 </head>
 <body class="bg-gray-100 text-gray-900">
   <div class="max-w-6xl mx-auto p-8">
-    <h1 class="text-4xl font-bold text-center text-yellow-600 mb-10">🍽️ Buzzaraunt Pricing Plans</h1>
+    <h1 class="text-4xl font-bold text-center text-yellow-600 mb-10">🍽️ Buzzaraunt Pricing</h1>
 
-    <div id="plans" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
       <!-- Basic Plan -->
-      <div class="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition text-center">
-        <h3 class="text-2xl font-extrabold text-yellow-500 mb-2">Basic</h3>
-        <p class="text-3xl font-bold mb-4">$19<span class="text-base font-medium text-gray-500">/month</span></p>
-        <ul class="text-gray-600 text-sm mb-4 space-y-1 text-left">
-          <li>✅ Create up to 10 promos/month</li>
-          <li>✅ Basic social media captions</li>
-          <li>✅ Menu builder access</li>
-          <li>❌ No AI video/voiceover</li>
-          <li>❌ No delivery tools</li>
-        </ul>
-        <div id="paypal-basic"></div>
+      <div class="bg-white p-6 rounded-lg shadow text-center">
+        <h3 class="text-xl font-bold mb-2">Basic</h3>
+        <p class="text-gray-600 mb-4">$9/month</p>
+        <div id="paypal-button-container-P-26P54410G50146132NBTTQ7Y"></div>
       </div>
 
       <!-- Pro Plan -->
-      <div class="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition text-center">
-        <h3 class="text-2xl font-extrabold text-purple-600 mb-2">Pro</h3>
-        <p class="text-3xl font-bold mb-4">$49<span class="text-base font-medium text-gray-500">/month</span></p>
-        <ul class="text-gray-600 text-sm mb-4 space-y-1 text-left">
-          <li>✅ Unlimited promos</li>
-          <li>✅ AI images & captions</li>
-          <li>✅ AI video & voiceover</li>
-          <li>✅ Post scheduling tools</li>
-          <li>❌ Delivery dashboard</li>
-        </ul>
-        <div id="paypal-pro"></div>
+      <div class="bg-white p-6 rounded-lg shadow text-center">
+        <h3 class="text-xl font-bold mb-2">Pro</h3>
+        <p class="text-gray-600 mb-4">$19/month</p>
+        <div id="paypal-button-container-P-9TE454589N1916526NBTTSLA"></div>
       </div>
 
       <!-- Enterprise Plan -->
-      <div class="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition text-center border-2 border-yellow-500">
-        <h3 class="text-2xl font-extrabold text-green-600 mb-2">Enterprise</h3>
-        <p class="text-3xl font-bold mb-4">$99<span class="text-base font-medium text-gray-500">/month</span></p>
-        <ul class="text-gray-600 text-sm mb-4 space-y-1 text-left">
-          <li>✅ Everything in Pro</li>
-          <li>✅ Full delivery system</li>
-          <li>✅ Advanced analytics</li>
-          <li>✅ White-label branding</li>
-          <li>✅ Priority support</li>
-        </ul>
-        <div id="paypal-enterprise"></div>
+      <div class="bg-white p-6 rounded-lg shadow text-center">
+        <h3 class="text-xl font-bold mb-2">Enterprise</h3>
+        <p class="text-gray-600 mb-4">$99/month</p>
+        <div id="paypal-button-container-P-9FM40680D9173120ANBTTTVQ"></div>
       </div>
 
     </div>
   </div>
 
-  <!-- Only ONE PayPal SDK Script -->
-  <script src="https://www.paypal.com/sdk/js?client-id=ATYlT9p6S96zZq0t-_SF0CGjwTr29mHE0YyW2TacuJ6QxjnEcznv5TwE6bXhxkEbILf8P5i9rqZz5-SZ&vault=true&intent=subscription"></script>
+  <!-- PayPal SDK Script (Include Once) -->
+  <script src="https://www.paypal.com/sdk/js?client-id=ATYlT9p6S96zZq0t-_SF0CGjwTr29mHE0YyW2TacuJ6QxjnEcznv5TwE6bXhxkEbILf8P5i9rqZz5-SZ&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
 
   <script>
-    const plans = [
-      { id: 'paypal-basic', planId: 'P-26P54410G50146132NBTTQ7Y', name: 'Basic' },
-      { id: 'paypal-pro', planId: 'P-9TE454589N1916526NBTTSLA', name: 'Pro' },
-      { id: 'paypal-enterprise', planId: 'P-9FM40680D9173120ANBTTTVQ', name: 'Enterprise' }
-    ];
+    // BASIC $9
+    paypal.Buttons({
+      style: { shape: 'rect', color: 'gold', layout: 'vertical', label: 'subscribe' },
+      createSubscription: function (data, actions) {
+        return actions.subscription.create({ plan_id: 'P-26P54410G50146132NBTTQ7Y' });
+      },
+      onApprove: function (data, actions) {
+        alert('Basic Plan Subscribed! ID: ' + data.subscriptionID);
+      }
+    }).render('#paypal-button-container-P-26P54410G50146132NBTTQ7Y');
 
-    plans.forEach(({ id, planId, name }) => {
-      paypal.Buttons({
-        style: { shape: 'rect', color: 'gold', layout: 'vertical', label: 'subscribe' },
-        createSubscription: (data, actions) => actions.subscription.create({ plan_id: planId }),
-        onApprove: data => alert(`${name} Plan Subscribed! ID: ${data.subscriptionID}`)
-      }).render(`#${id}`);
-    });
+    // PRO $19
+    paypal.Buttons({
+      style: { shape: 'rect', color: 'gold', layout: 'vertical', label: 'subscribe' },
+      createSubscription: function (data, actions) {
+        return actions.subscription.create({ plan_id: 'P-9TE454589N1916526NBTTSLA' });
+      },
+      onApprove: function (data, actions) {
+        alert('Pro Plan Subscribed! ID: ' + data.subscriptionID);
+      }
+    }).render('#paypal-button-container-P-9TE454589N1916526NBTTSLA');
+
+    // ENTERPRISE $99
+    paypal.Buttons({
+      style: { shape: 'rect', color: 'gold', layout: 'vertical', label: 'subscribe' },
+      createSubscription: function (data, actions) {
+        return actions.subscription.create({ plan_id: 'P-9FM40680D9173120ANBTTTVQ' });
+      },
+      onApprove: function (data, actions) {
+        alert('Enterprise Plan Subscribed! ID: ' + data.subscriptionID);
+      }
+    }).render('#paypal-button-container-P-9FM40680D9173120ANBTTTVQ');
   </script>
 </body>
 </html>
-

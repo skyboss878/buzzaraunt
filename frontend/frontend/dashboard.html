@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Buzzaraunt – The AI-powered restaurant marketing & online ordering platform" />
+  <meta name="keywords" content="restaurant marketing, AI menu, food delivery, online ordering, social media promos" />
+  <meta name="author" content="Buzzaraunt AI" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Buzzaraunt – AI Marketing for Restaurants" />
+  <meta property="og:description" content="Create viral promos, schedule AI-powered posts, and manage online orders from one dashboard." />
+  <meta property="og:image" content="https://buzzaraunt.com/og-image.jpg" />
+  <meta property="og:url" content="https://buzzaraunt.com" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Buzzaraunt – AI for Restaurants" />
+  <meta name="twitter:description" content="Your full-service AI marketing and ordering solution." />
+  <meta name="twitter:image" content="https://buzzaraunt.com/twitter-preview.jpg" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <!-- Meta + Title -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buzzaraunt Dashboard</title>
+
+  <!-- Tailwind CSS -->
+  <link rel="preload" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"></noscript>
+  
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+  <!-- ✅ Token & Plan Script -->
+  <script>
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user"));
+    const plan = user?.plan;
+
+    if (!token || !user) {
+      alert("⚠️ You must be logged in to access this page.");
+      window.location.href = "/login.html";
+    }
+
+    const allowedPlans = ["basic", "pro", "enterprise", "agency"];
+    if (!allowedPlans.includes(plan)) {
+      alert("🚫 Access denied: Please subscribe to a plan.");
+      window.location.href = "pricing.html";
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      if (plan === "basic") {
+        document.getElementById("promoBtn")?.style.display = "none";
+        document.getElementById("storeBtn")?.style.display = "none";
+      }
+      if (plan !== "agency") {
+        document.getElementById("deliveryBtn")?.style.display = "none";
+      }
+    });
+
+    function logout() {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      alert("You’ve been logged out.");
+      location.reload();
+    }
+  </script>
+
+  <!-- ✅ Main Content -->
+  <div class="max-w-4xl mx-auto p-6">
+    <h1 class="text-4xl font-bold text-yellow-600 mb-6">🍽️ Buzzaraunt Dashboard</h1>
+    <p class="mb-4 text-gray-700">Welcome to your restaurant's control center. Use the tools below to grow your brand with AI promotions and scheduling.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Generate New Promo -->
+      <a href="promo.html" id="promoBtn" class="block bg-yellow-100 hover:bg-yellow-200 rounded-lg p-6 shadow transition">
+        <h2 class="text-2xl font-semibold mb-2">🎯 Generate Promo</h2>
+        <p>Create viral posts with AI including voiceovers, captions, music, images and hashtags.</p>
+      </a>
+
+      <!-- View Scheduled Promos -->
+      <a href="promos.html" class="block bg-purple-100 hover:bg-purple-200 rounded-lg p-6 shadow transition">
+        <h2 class="text-2xl font-semibold mb-2">📅 Scheduled Promos</h2>
+        <p>Manage and schedule your upcoming social media content.</p>
+      </a>
+
+      <!-- Store Management -->
+      <a href="store.html" id="storeBtn" class="block bg-green-100 hover:bg-green-200 rounded-lg p-6 shadow transition">
+        <h2 class="text-2xl font-semibold mb-2">🏪 Manage Store</h2>
+        <p>Edit your menu, update prices, and manage ordering options.</p>
+      </a>
+
+      <!-- Delivery Orders -->
+      <a href="delivery.html" id="deliveryBtn" class="block bg-blue-100 hover:bg-blue-200 rounded-lg p-6 shadow transition">
+        <h2 class="text-2xl font-semibold mb-2">🚚 Delivery Orders</h2>
+        <p>Track, fulfill, and manage incoming online orders in real time.</p>
+      </a>
+    </div>
+
+    <button onclick="logout()" class="mt-6 px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition font-semibold">
+      Logout
+    </button>
+  </div>
+</body>
+</html>

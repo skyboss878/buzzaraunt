@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- SEO Meta Tags -->
+
+<meta name="description" content="Buzzaraunt – The AI-powered restaurant marketing & online ordering platform" />
+
+<meta name="keywords" content="restaurant marketing, AI menu, food delivery, online ordering, social media promos" />
+
+<meta name="author" content="Buzzaraunt AI" />
+
+
+
+<!-- Open Graph / Facebook -->
+
+<meta property="og:title" content="Buzzaraunt – AI Marketing for Restaurants" />
+
+<meta property="og:description" content="Create viral promos, schedule AI-powered posts, and manage online orders from one dashboard." />
+
+<meta property="og:image" content="https://buzzaraunt.com/og-image.jpg" />
+
+<meta property="og:url" content="https://buzzaraunt.com" />
+
+<meta property="og:type" content="website" />
+
+
+
+<!-- Twitter -->
+
+<meta name="twitter:card" content="summary_large_image" />
+
+<meta name="twitter:title" content="Buzzaraunt – AI for Restaurants" />
+
+<meta name="twitter:description" content="Your full-service AI marketing and ordering solution." />
+
+<meta name="twitter:image" content="https://buzzaraunt.com/twitter-preview.jpg" />
+
+
+
+<!-- Favicon -->
+
+<link rel="icon" type="image/png" href="favicon.png" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout – Buzzaraunt</title>
+  <link rel="stylesheet" href="styles/output.css" />
+
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+  <div class="max-w-2xl mx-auto p-6">
+    <h1 class="text-2xl font-bold text-yellow-600 mb-4">🧾 Complete Your Order</h1>
+
+    <!-- Cart Summary -->
+    <div class="bg-white p-4 rounded shadow mb-6">
+      <h2 class="text-xl font-semibold mb-2">Your Items</h2>
+      <ul id="cartSummary" class="text-sm space-y-1"></ul>
+      <p id="cartTotal" class="font-semibold mt-2"></p>
+    </div>
+
+    <!-- Checkout Form -->
+    <form id="checkoutForm" class="space-y-4">
+      <div>
+        <label class="block font-medium">Full Name</label>
+        <input type="text" name="name" required class="w-full p-2 border rounded" />
+      </div>
+
+      <div>
+        <label class="block font-medium">Phone</label>
+        <input type="tel" name="phone" required class="w-full p-2 border rounded" />
+      </div>
+
+      <div>
+        <label class="block font-medium">Email</label>
+        <input type="email" name="email" required class="w-full p-2 border rounded" />
+      </div>
+
+      <div>
+        <label class="block font-medium">Delivery or Pickup?</label>
+        <select name="method" class="w-full p-2 border rounded">
+          <option value="pickup">Pickup</option>
+          <option value="delivery">Delivery</option>
+        </select>
+      </div>
+
+      <div id="deliveryAddressDiv" style="display:none">
+        <label class="block font-medium">Delivery Address</label>
+        <textarea name="address" rows="2" class="w-full p-2 border rounded"></textarea>
+      </div>
+
+      <h3 class="font-semibold mt-6 mb-2">💳 Payment</h3>
+      <div class="flex gap-4">
+        <button type="button" onclick="payWithStripe()" class="bg-blue-600 text-white px-4 py-2 rounded">Pay with Stripe</button>
+        <button type="button" onclick="payWithPayPal()" class="bg-yellow-500 text-white px-4 py-2 rounded">Pay with PayPal</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const urlParams = new URLSearchParams(window.location.search);
+    const restaurantId = urlParams.get('rid');
+    const cartSummaryEl = document.getElementById('cartSummary');
+    const cartTotalEl = document.getElementById('cartTotal');
+    const deliveryAddressDiv = document.getElementById('deliveryAddressDiv');
+
+    let total = 0;
+    cart.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = item.item + " - " + item.price;
+      cartSummaryEl.appendChild(li);
+      total += parseFloat(item.price.replace('$','')) || 0;
+    });
+
+    cartTotalEl.textContent = "Total: $" + total.toFixed(2);
+
+    const checkoutForm = document.getElementById('checkoutForm');
+
+    checkoutForm.method.addEventListener('change', () => {
+      deliveryAddressDiv.style.display = checkoutForm.method.value === 'delivery' ? 'block' : 'none';
+    });
+
+    function payWithStripe() {
+      const data = collectOrderData();
+      alert('Stripe payment would start here (demo).');
+      console.log('Stripe payload:', data);
+      // TODO: Call backend to create Stripe checkout session
+    }
+
+    function payWithPayPal() {
+      const data = collectOrderData();
+      alert('PayPal payment would start here (demo).');
+      console.log('PayPal payload:', data);
+      // TODO: Redirect to PayPal or call PayPal SDK
+    }
+
+    function collectOrderData() {
+      const form = new FormData(checkoutForm);
+      return {
+        restaurantId,
+        cart,
+        total: total.toFixed(2),
+        name: form.get('name'),
+        phone: form.get('phone'),
+        email: form.get('email'),
+        method: form.get('method'),
+        address: form.get('address') || ''
+      };
+    }
+  </script>
+</body>
+</html>
+

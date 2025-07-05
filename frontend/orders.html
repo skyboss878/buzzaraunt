@@ -1,101 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="description" content="Buzzaraunt Orders – Manage your incoming food orders" />
-  <meta name="keywords" content="restaurant orders, online food orders, Buzzaraunt, order dashboard" />
-  <meta name="author" content="Buzzaraunt AI" />
-  <meta property="og:title" content="Buzzaraunt – Orders Dashboard" />
-  <meta property="og:description" content="View, manage, and fulfill customer orders directly from your Buzzaraunt dashboard." />
-  <meta property="og:image" content="https://buzzaraunt.com/orders-preview.jpg" />
-  <meta property="og:url" content="https://buzzaraunt.com/orders.html" />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Buzzaraunt – Orders Management" />
-  <meta name="twitter:description" content="Monitor and fulfill incoming food orders." />
-  <meta name="twitter:image" content="https://buzzaraunt.com/twitter-orders.jpg" />
-  <link rel="icon" type="image/png" href="favicon.png" />
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Buzzaraunt – Orders</title>
-  <link rel="preload" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"></noscript>
-  
+<script>
+const allowedPlans = ["basic", "pro", "enterprise"];
+const plan = localStorage.getItem("buzz_plan");
+if (!allowedPlans.includes(plan)) {
+  alert("🚫 You must subscribe to access this feature.");
+  window.location.href = "pricing.html";
+}
+  const plan = localStorage.getItem("userPlan");
+
+  if (plan !== "pro" && plan !== "agency") {
+
+    alert("🍽️ Kitchen Order View requires Pro or Agency plan.");
+
+    window.location.href = "pricing.html";
+
+  }
+
+</script>
+<!-- SEO Meta Tags -->
+
+<meta name="description" content="Buzzaraunt – The AI-powered restaurant marketing & online ordering platform" />
+
+<meta name="keywords" content="restaurant marketing, AI menu, food delivery, online ordering, social media promos" />
+
+<meta name="author" content="Buzzaraunt AI" />
+
+
+
+<!-- Open Graph / Facebook -->
+
+<meta property="og:title" content="Buzzaraunt – AI Marketing for Restaurants" />
+
+<meta property="og:description" content="Create viral promos, schedule AI-powered posts, and manage online orders from one dashboard." />
+
+<meta property="og:image" content="https://buzzaraunt.com/og-image.jpg" />
+
+<meta property="og:url" content="https://buzzaraunt.com" />
+
+<meta property="og:type" content="website" />
+
+
+
+<!-- Twitter -->
+
+<meta name="twitter:card" content="summary_large_image" />
+
+<meta name="twitter:title" content="Buzzaraunt – AI for Restaurants" />
+
+<meta name="twitter:description" content="Your full-service AI marketing and ordering solution." />
+
+<meta name="twitter:image" content="https://buzzaraunt.com/twitter-preview.jpg" />
+
+
+
+<!-- Favicon -->
+
+<link rel="icon" type="image/png" href="favicon.png" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Orders – Buzzaraunt</title>
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+<link rel="stylesheet" href="styles/styles.css" />
 </head>
-
-<body class="bg-gray-50 text-gray-900">
-  <script>
-    const token = localStorage.getItem("token");
-    const user = JSON.parse(localStorage.getItem("user"));
-    const plan = user?.plan;
-
-    if (!token || !user) {
-      alert("⚠️ You must be logged in to access this page.");
-      window.location.href = "/login.html";
-    }
-
-    const allowedPlans = ["pro", "enterprise", "agency"];
-    if (!allowedPlans.includes(plan)) {
-      alert("🚫 Orders access requires a Pro or higher subscription.");
-      window.location.href = "pricing.html";
-    }
-
-    function logout() {
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-      alert("✅ Logged out.");
-      location.reload();
-    }
-  </script>
-
-  <div class="max-w-4xl mx-auto px-6 py-10">
-    <h1 class="text-4xl font-bold text-yellow-600 mb-6">📦 Incoming Orders</h1>
+<body class="bg-gray-100 text-gray-900">
+  <div class="max-w-5xl mx-auto p-6">
+    <h1 class="text-3xl font-bold text-green-700 mb-6">🧾 Live Kitchen Orders</h1>
 
     <div id="ordersContainer" class="space-y-4"></div>
 
-    <button onclick="logout()" class="mt-6 text-red-500 underline">Logout</button>
+    <div id="emptyMsg" class="text-center text-gray-600 mt-8 hidden">
+      No orders yet.
+    </div>
   </div>
 
   <script>
-    async function loadOrders() {
-      try {
-        const res = await fetch("https://buzzaraunt.onrender.com/api/orders/list", {
-          headers: { "Authorization": "Bearer " + token }
-        });
-        const result = await res.json();
-
-        const container = document.getElementById("ordersContainer");
-        container.innerHTML = "";
-
-        if (result.success && Array.isArray(result.orders)) {
-          if (result.orders.length === 0) {
-            container.innerHTML = "<p class='text-gray-600'>No orders yet.</p>";
-            return;
-          }
-
-          result.orders.forEach(order => {
-            const card = document.createElement("div");
-            card.className = "bg-white p-4 rounded-lg shadow";
-
-            card.innerHTML = \`
-              <h2 class="text-xl font-semibold text-gray-800 mb-2">🧾 Order #\${order.id}</h2>
-              <p><strong>Customer:</strong> \${order.customerName}</p>
-              <p><strong>Items:</strong> \${order.items.join(", ")}</p>
-              <p><strong>Total:</strong> $\${order.total}</p>
-              <p><strong>Status:</strong> <span class="font-semibold text-green-600">\${order.status}</span></p>
-            \`;
-
-            container.appendChild(card);
-          });
-        } else {
-          container.innerHTML = "<p class='text-red-500'>⚠️ Failed to load orders.</p>";
-        }
-      } catch (err) {
-        console.error(err);
-        document.getElementById("ordersContainer").innerHTML = "<p class='text-red-500'>❌ Error fetching orders.</p>";
-      }
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert("Please log in");
+      location.href = 'login.html';
     }
 
-    document.addEventListener("DOMContentLoaded", loadOrders);
+    async function loadOrders() {
+      const res = await fetch('http://localhost:4000/api/orders', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+
+      const data = await res.json();
+      const ordersContainer = document.getElementById('ordersContainer');
+      ordersContainer.innerHTML = '';
+
+      if (!data.orders || data.orders.length === 0) {
+        document.getElementById('emptyMsg').classList.remove('hidden');
+        return;
+      }
+
+      data.orders.forEach(order => {
+        const div = document.createElement('div');
+        div.className = "bg-white rounded shadow p-4";
+
+        div.innerHTML = `
+          <p class="text-lg font-bold">🍽️ ${order.customerName} — ${order.method}</p>
+          <p class="text-sm text-gray-600">📍 ${order.address || 'N/A'} | 🕒 ${new Date(order.createdAt).toLocaleString()}</p>
+          <ul class="list-disc ml-6 mt-2">
+            ${order.cart.map(item => `<li>${item.qty}× ${item.item}</li>`).join('')}
+          </ul>
+          <p class="mt-2 font-semibold">💵 Total: $${order.total}</p>
+          <p class="text-sm text-blue-600 mt-1">Status: ${order.status}</p>
+        `;
+
+        ordersContainer.appendChild(div);
+      });
+    }
+
+    loadOrders();
+    setInterval(loadOrders, 10000); // Refresh every 10 sec
+  const plan = localStorage.getItem("userPlan");
+
+  if (plan !== "pro" && plan !== "agency") {
+
+    alert("🍽️ Kitchen Order View requires Pro or Agency plan.");
+
+    window.location.href = "pricing.html";
+
+  }
+
   </script>
+<script>
+const user = JSON.parse(localStorage.getItem("user"));
+const allowedPlans = ["basic","pro","enterprise"];
+if (!user || !allowedPlans.includes(user.plan)) {
+alert("🚫 Access denied: Please subscribe to a plan.");
+window.location.href = "pricing.html";
+}
+</script>
 </body>
 </html>
-
