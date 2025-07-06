@@ -1,3 +1,4 @@
+
 {
   "name": "backend",
   "version": "1.0.0",
@@ -23,5 +24,14 @@
   "devDependencies": {
     "http-proxy-middleware": "^3.0.5",
     "nodemon": "^3.0.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Skyboss878/my-buzzaraunt-backend.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Skyboss878/my-buzzaraunt-backend/issues"
+  },
+  "homepage": "https://github.com/Skyboss878/my-buzzaraunt-backend#readme"
 }
