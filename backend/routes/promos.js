@@ -1,37 +1,23 @@
+// ~/buzzaraunt/backend/routes/promos.js
 const express = require('express');
-const checkPlan = require('../middleware/plan');
 const router = express.Router();
-const verifyToken = require('../middleware/verifyToken');
+const authMiddleware = require('../middleware/authMiddleware'); // CORRECT: Use the consolidated authMiddleware
+const checkPlan = require('../middleware/plan');
+const promoController = require('../controllers/promoController');
 
-let promos = []; // In-memory store – replace with DB later
+// Apply authentication middleware to all routes in this router
+router.use(authMiddleware); // All promo routes will now require a valid token
 
-// POST /api/promos – save promo
-router.post('/', checkPlan(['pro','enterprise']), verifyToken, (req, res) => {
-  const { caption, imageSrc, voiceLink, music, time } = req.body;
-  if (!caption || !imageSrc || !voiceLink || !time) {
-    return res.status(400).json({ success: false, message: 'Missing promo data' });
-  }
+// POST to generate and save a new promo
+// Frontend calls /api/promos/generate
+router.post('/generate', checkPlan(['pro', 'enterprise']), promoController.generatePromo);
 
-  const promo = {
-    user: req.user.email,
-    caption,
-    imageSrc,
-    voiceLink,
-    music,
-    time,
-    id: Date.now()
-  };
+// GET all promos for the authenticated user
+// Frontend calls /api/promos
+router.get('/', checkPlan(['basic', 'pro', 'enterprise']), promoController.getPromos);
 
-  promos.push(promo);
-  res.json({ success: true, promo });
-});
-
-// GET /api/promos – get all promos for user
-router.get('/', checkPlan(['pro','enterprise']), verifyToken, (req, res) => {
-  const userPromos = promos.filter(p => p.user === req.user.email);
-  res.json({ success: true, promos: userPromos });
-});
+// DELETE a specific promo by ID
+// Frontend calls /api/promos/:id
+router.delete('/:id', checkPlan(['pro', 'enterprise']), promoController.deletePromo);
 
 module.exports = router;
-
-
