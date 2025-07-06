@@ -1,102 +1,530 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- SEO Meta Tags -->
+  <meta name="description" content="Buzzaraunt – The AI-powered restaurant marketing & online ordering platform" />
+  <meta name="keywords" content="restaurant marketing, AI menu, food delivery, online ordering, social media promos" />
+  <meta name="author" content="Buzzaraunt AI" />
 
-<meta name="description" content="Buzzaraunt – The AI-powered restaurant marketing & online ordering platform" />
+  <meta property="og:title" content="Buzzaraunt – AI Marketing for Restaurants" />
+  <meta property="og:description" content="Create viral promos, schedule AI-powered posts, and manage online orders from one dashboard." />
+  <meta property="og:image" content="https://buzzaraunt.com/og-image.jpg" />
+  <meta property="og:url" content="https://buzzaraunt.com" />
+  <meta property="og:type" content="website" />
 
-<meta name="keywords" content="restaurant marketing, AI menu, food delivery, online ordering, social media promos" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Buzzaraunt – AI for Restaurants" />
+  <meta name="twitter:description" content="Your full-service AI marketing and ordering solution." />
+  <meta name="twitter:image" content="https://buzzaraunt.com/twitter-preview.jpg" />
 
-<meta name="author" content="Buzzaraunt AI" />
-
-
-
-<!-- Open Graph / Facebook -->
-
-<meta property="og:title" content="Buzzaraunt – AI Marketing for Restaurants" />
-
-<meta property="og:description" content="Create viral promos, schedule AI-powered posts, and manage online orders from one dashboard." />
-
-<meta property="og:image" content="https://buzzaraunt.com/og-image.jpg" />
-
-<meta property="og:url" content="https://buzzaraunt.com" />
-
-<meta property="og:type" content="website" />
-
-
-
-<!-- Twitter -->
-
-<meta name="twitter:card" content="summary_large_image" />
-
-<meta name="twitter:title" content="Buzzaraunt – AI for Restaurants" />
-
-<meta name="twitter:description" content="Your full-service AI marketing and ordering solution." />
-
-<meta name="twitter:image" content="https://buzzaraunt.com/twitter-preview.jpg" />
-
-
-
-<!-- Favicon -->
-
-<link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="icon" type="image/png" href="favicon.png" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Create Your Restaurant – Buzzaraunt</title>
-  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" />
-<link rel="stylesheet" href="styles/styles.css" />
+
+  <link rel="preload" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"></noscript>
+  <link rel="stylesheet" href="styles/styles.css" /> <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    * {
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+      display: flex; /* Make body a flex container to center content */
+      align-items: center; /* Center content vertically */
+      justify-content: center; /* Center content horizontally */
+      padding: 1rem; /* Add some padding */
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><circle cx="100" cy="100" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="900" cy="200" r="3" fill="rgba(255,255,255,0.1)"/><circle cx="300" cy="800" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="700" cy="600" r="3" fill="rgba(255,255,255,0.1)"/></svg>');
+      animation: drift 30s infinite linear;
+      pointer-events: none;
+    }
+
+    @keyframes drift {
+      0% { transform: translateX(0px) translateY(0px); }
+      33% { transform: translateX(-20px) translateY(-10px); }
+      66% { transform: translateX(10px) translateY(-20px); }
+      100% { transform: translateX(0px) translateY(0px); }
+    }
+
+    .glass-container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+      border-radius: 24px;
+    }
+
+    .step-container {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .step-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .step-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: white;
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    }
+
+    .step-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #1f2937;
+      margin: 0;
+    }
+
+    .step-subtitle {
+      color: #6b7280;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .input-group input,
+    .input-group textarea,
+    .input-group select {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      background: white;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      outline: none;
+      resize: none;
+    }
+
+    .input-group input:focus,
+    .input-group textarea:focus,
+    .input-group select:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .input-group label {
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      background: white;
+      padding: 0 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #6b7280;
+      transition: all 0.3s ease;
+      pointer-events: none;
+      border-radius: 4px;
+    }
+
+    .input-group input:focus + label,
+    .input-group input:not(:placeholder-shown) + label,
+    .input-group textarea:focus + label,
+    .input-group textarea:not(:placeholder-shown) + label {
+      top: -0.5rem;
+      font-size: 0.8rem;
+      color: #667eea;
+      font-weight: 600;
+    }
+
+    .file-upload {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .file-upload input[type="file"] {
+      position: absolute;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+
+    .file-upload-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 100%;
+      padding: 3rem 1rem;
+      border: 2px dashed #d1d5db;
+      border-radius: 12px;
+      background: #f9fafb;
+      color: #6b7280;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .file-upload:hover .file-upload-label {
+      border-color: #667eea;
+      background: #f0f4ff;
+      color: #667eea;
+    }
+
+    .logo-preview {
+      margin-top: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      max-height: 120px;
+      object-fit: cover;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-secondary {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 35px rgba(16, 185, 129, 0.4);
+    }
+
+    .btn-finish {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: white;
+      border: none;
+      padding: 1.5rem 3rem;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-finish:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px rgba(245, 158, 11, 0.4);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .menu-item {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      border-left: 4px solid #10b981;
+    }
+
+    .menu-item:hover {
+      transform: translateX(5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu-item h4 {
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 0.5rem;
+    }
+
+    .menu-item .price {
+      font-weight: 700;
+      color: #10b981;
+      font-size: 1.1rem;
+    }
+
+    .menu-item .description {
+      color: #6b7280;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .progress-bar {
+      height: 4px;
+      background: #e5e7eb;
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+      transition: width 0.5s ease;
+    }
+
+    .success-message {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      padding: 1rem;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      font-weight: 500;
+      animation: slideIn 0.5s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(-20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .loading::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      border: 2px solid transparent;
+      border-top: 2px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      transform: translate(-50%, -50%);
+    }
+
+    @keyframes spin {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      color: #6b7280;
+    }
+
+    .empty-state-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .completion-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(16, 185, 129, 0.1);
+      color: #059669;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-left: 1rem;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 min-h-screen">
+<body class="min-h-screen p-4">
 
-  <div class="max-w-4xl mx-auto p-6 bg-white shadow-xl rounded-xl mt-10">
-    <h1 class="text-3xl font-bold text-yellow-600 mb-6">🍽️ Create Your Restaurant Profile</h1>
+  <div class="max-w-4xl mx-auto">
+    <div class="progress-bar">
+      <div class="progress-fill" style="width: 0%"></div>
+    </div>
 
-    <!-- Restaurant Info -->
-    <form id="restaurantForm" class="space-y-4">
-      <div>
-        <label class="block font-semibold">Restaurant Name</label>
-        <input type="text" name="name" required class="w-full p-2 border rounded" />
+    <div class="glass-container p-6 mb-8 text-white">
+      <div class="text-center">
+        <h1 class="text-4xl font-bold mb-2">🍽️ Create Your Restaurant</h1>
+        <p class="text-opacity-80">Set up your restaurant profile and menu in just a few steps</p>
+      </div>
+    </div>
+
+    <div class="step-container" id="step1">
+      <div class="step-header">
+        <div class="step-icon">🏪</div>
+        <div>
+          <h2 class="step-title">Restaurant Profile</h2>
+          <p class="step-subtitle">Tell us about your restaurant</p>
+        </div>
       </div>
 
-      <div>
-        <label class="block font-semibold">Description</label>
-        <textarea name="description" rows="2" class="w-full p-2 border rounded"></textarea>
+      <form id="restaurantForm" class="space-y-6">
+        <div class="input-group">
+          <input type="text" name="name" placeholder=" " required />
+          <label>Restaurant Name</label>
+        </div>
+
+        <div class="input-group">
+          <textarea name="description" placeholder=" " rows="4"></textarea>
+          <label>Description</label>
+        </div>
+
+        <div class="input-group">
+          <div class="file-upload">
+            <input type="file" name="logo" accept="image/*" />
+            <div class="file-upload-label">
+              <span>📸</span>
+              <span>Upload Logo</span>
+            </div>
+          </div>
+          <img id="logoPreview" class="logo-preview hidden" />
+        </div>
+
+        <div class="input-group">
+          <textarea name="hours" placeholder=" " rows="4"></textarea>
+          <label>Hours of Operation</label>
+        </div>
+
+        <div class="input-group">
+          <input type="url" name="website" placeholder=" " />
+          <label>Website (optional)</label>
+        </div>
+
+        <button type="submit" class="btn-primary">
+          💾 Save Restaurant Profile
+        </button>
+      </form>
+    </div>
+
+    <div class="step-container" id="step2">
+      <div class="step-header">
+        <div class="step-icon">📋</div>
+        <div>
+          <h2 class="step-title">Build Your Menu</h2>
+          <p class="step-subtitle">Add your delicious items</p>
+        </div>
       </div>
 
-      <div>
-        <label class="block font-semibold">Upload Logo</label>
-        <input type="file" name="logo" accept="image/*" class="w-full p-2 border rounded" />
-        <img id="logoPreview" class="mt-2 max-h-24 hidden" />
-      </div>
+      <form id="menuForm" class="space-y-6">
+        <div class="menu-grid">
+          <div class="input-group">
+            <input type="text" name="item" placeholder=" " required />
+            <label>Item Name</label>
+          </div>
+          <div class="input-group">
+            <input type="text" name="price" placeholder=" " required />
+            <label>Price ($)</label>
+          </div>
+        </div>
 
-      <div>
-        <label class="block font-semibold">Hours of Operation</label>
-        <textarea name="hours" rows="2" placeholder="Mon–Fri: 8am–10pm" class="w-full p-2 border rounded"></textarea>
-      </div>
+        <div class="input-group">
+          <textarea name="description" placeholder=" " rows="3"></textarea>
+          <label>Description</label>
+        </div>
 
-      <div>
-        <label class="block font-semibold">Website (optional)</label>
-        <input type="url" name="website" class="w-full p-2 border rounded" />
-      </div>
-
-      <button type="submit" class="w-full bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded font-semibold">Save Restaurant</button>
-    </form>
-
-    <!-- Menu Builder -->
-    <div class="mt-10">
-      <h2 class="text-2xl font-bold text-gray-800 mb-2">🧾 Build Your Menu</h2>
-      <form id="menuForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <input type="text" name="item" placeholder="Item Name" required class="p-2 border rounded" />
-        <input type="text" name="price" placeholder="$ Price" required class="p-2 border rounded" />
-        <textarea name="description" placeholder="Short description" class="col-span-2 p-2 border rounded"></textarea>
-        <button type="submit" class="col-span-2 bg-green-500 hover:bg-green-600 text-white py-2 rounded font-semibold">Add to Menu</button>
+        <button type="submit" class="btn-secondary w-full">
+          ➕ Add Menu Item
+        </button>
       </form>
 
-      <ul id="menuPreview" class="mt-6 space-y-2 bg-gray-50 p-4 rounded text-sm text-black">
-        <!-- Menu items appear here -->
-      </ul>
+      <div class="mt-8">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4"> 📋 Your Menu</h3>
+        <div id="menuPreview" class="min-h-32">
+          <div class="empty-state">
+            <div class="empty-state-icon">🍽️</div>
+            <p>No menu items yet. Add your first item above!</p>
+          </div>
+        </div>
+      </div>
+    </div>
 
-      <button id="finishBtn" class="mt-8 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Finish Setup</button>
+    <div class="step-container" id="step3">
+      <div class="step-header">
+        <div class="step-icon">🎉</div>
+        <div>
+          <h2 class="step-title">Almost Done!</h2>
+          <p class="step-subtitle">Your restaurant is ready to go live</p>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <p class="text-gray-600 mb-6">Great job! Your restaurant profile and menu are set up. You're ready to start using Buzzaraunt's AI-powered marketing tools.</p>
+
+        <button id="finishBtn" class="btn-finish">
+          🚀 Go to Dashboard
+        </button>
+      </div>
     </div>
   </div>
 
@@ -107,11 +535,56 @@
     const logoInput = restaurantForm.querySelector('input[name="logo"]');
     const logoPreview = document.getElementById('logoPreview');
     const finishBtn = document.getElementById('finishBtn');
+    const progressFill = document.querySelector('.progress-fill');
 
     let restaurantId = localStorage.getItem('restaurantId');
-    const userId = localStorage.getItem('userId'); // should be saved after login
+    const userId = localStorage.getItem('userId');
+    let menuItems = [];
+    let currentStep = 1;
 
-    // Show image preview
+    // *** IMPORTANT: API_URL set to your deployed Render Backend URL ***
+    const API_URL = "https://buzzaraunt.onrender.com"; // User confirmed this is the backend URL
+
+    // Initial authentication check: Ensure user is logged in
+    const token = localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    if (!token || !user || !userId) {
+      alert('⚠️ Please log in first to set up your restaurant.');
+      window.location.href = '/login.html'; // Redirect to login page
+    }
+
+    // Update progress bar
+    function updateProgress() {
+      const progress = (currentStep / 3) * 100;
+      progressFill.style.width = `${progress}%`;
+    }
+
+    // Show completion badge
+    function showCompletionBadge(stepElement) {
+      const header = stepElement.querySelector('.step-header');
+      const existingBadge = header.querySelector('.completion-badge');
+      if (!existingBadge) {
+        const badge = document.createElement('div');
+        badge.className = 'completion-badge';
+        badge.innerHTML = '<span>✅</span><span>Complete</span>';
+        header.appendChild(badge);
+      }
+    }
+
+    // Show success message
+    function showSuccessMessage(message, container) {
+      const successDiv = document.createElement('div');
+      successDiv.className = 'success-message';
+      successDiv.textContent = message;
+      container.insertBefore(successDiv, container.firstChild);
+
+      setTimeout(() => {
+        successDiv.remove();
+      }, 3000);
+    }
+
+    // Logo preview
     logoInput.addEventListener('change', function () {
       const file = this.files[0];
       if (file) {
@@ -127,69 +600,184 @@
     // Submit restaurant profile
     restaurantForm.addEventListener('submit', async function (e) {
       e.preventDefault();
-      const formData = new FormData(restaurantForm);
 
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      submitBtn.classList.add('loading');
+      submitBtn.textContent = 'Saving...';
+
+      const formData = new FormData(restaurantForm);
       const payload = {
-        userId,
+        userId, // Ensure userId is sent
         name: formData.get('name'),
         description: formData.get('description'),
         hours: formData.get('hours'),
         website: formData.get('website')
       };
 
-      const res = await fetch('/api/restaurant/create', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
+      try {
+        const res = await fetch(`${API_URL}/api/restaurant/create`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` // Include the JWT token
+          },
+          body: JSON.stringify(payload)
+        });
 
-      const result = await res.json();
-      if (result.success) {
-        alert('Restaurant saved!');
-        restaurantId = result.restaurantId;
-        localStorage.setItem('restaurantId', restaurantId);
-      } else {
-        alert(result.message || 'Failed to save restaurant');
+        const result = await res.json();
+        if (res.ok && result.success) { // Check both res.ok and backend's success flag
+          restaurantId = result.restaurantId;
+          localStorage.setItem('restaurantId', restaurantId); // Save new restaurantId
+
+          showSuccessMessage('✅ Restaurant profile saved successfully!', document.getElementById('step1'));
+          showCompletionBadge(document.getElementById('step1'));
+
+          currentStep = 2;
+          updateProgress();
+
+          // Smooth scroll to menu section
+          document.getElementById('step2').scrollIntoView({ behavior: 'smooth' });
+
+          submitBtn.textContent = '✅ Profile Saved';
+          submitBtn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+        } else {
+          throw new Error(result.message || `Failed to save restaurant: ${res.statusText}`);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert(error.message || 'Network error or server unavailable. Please try again later.'); // Show alert for user
+        submitBtn.textContent = '❌ Try Again';
+        submitBtn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+
+        setTimeout(() => {
+          submitBtn.classList.remove('loading');
+          submitBtn.textContent = '💾 Save Restaurant Profile';
+          submitBtn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+        }, 3000);
       }
     });
 
     // Submit menu items
     menuForm.addEventListener('submit', async function (e) {
       e.preventDefault();
+
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      submitBtn.classList.add('loading');
+      submitBtn.textContent = 'Adding...';
+
       const formData = new FormData(menuForm);
       const item = formData.get('item');
       const price = formData.get('price');
       const description = formData.get('description');
 
-      if (!restaurantId) return alert('Please save restaurant info first.');
+      if (!restaurantId) {
+        alert('⚠️ Please save your restaurant profile first (Step 1) before adding menu items.');
+        document.getElementById('step1').scrollIntoView({ behavior: 'smooth' });
+        submitBtn.classList.remove('loading'); // Ensure button state resets
+        submitBtn.textContent = '➕ Add Menu Item';
+        return;
+      }
 
-      const res = await fetch('/api/menu/add', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ restaurantId, item, price, description })
-      });
+      try {
+        const res = await fetch(`${API_URL}/api/menu/add`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` // Include the JWT token
+          },
+          body: JSON.stringify({ restaurantId, item, price, description })
+        });
 
-      const result = await res.json();
-      if (result.success) {
-        const li = document.createElement('li');
-        li.textContent = `${item} – $${price} — ${description}`;
-        menuPreview.appendChild(li);
-        menuForm.reset();
-      } else {
-        alert('Failed to add menu item.');
+        const result = await res.json();
+        if (res.ok && result.success) { // Check both res.ok and backend's success flag
+          // Add to local menu items
+          menuItems.push({ item, price, description });
+
+          // Update menu preview
+          updateMenuPreview();
+
+          // Reset form
+          menuForm.reset();
+
+          // Show success
+          showSuccessMessage(`✅ "${item}" added to menu!`, document.getElementById('step2'));
+
+          submitBtn.textContent = '✅ Added!';
+          submitBtn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+
+          setTimeout(() => {
+            submitBtn.classList.remove('loading');
+            submitBtn.textContent = '➕ Add Menu Item';
+            submitBtn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+          }, 2000);
+
+          // Update progress if first menu item added
+          if (menuItems.length === 1) {
+            showCompletionBadge(document.getElementById('step2'));
+            currentStep = 3;
+            updateProgress();
+          }
+        } else {
+          throw new Error(result.message || `Failed to add menu item: ${res.statusText}`);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert(error.message || 'Network error or server unavailable. Please try again later.'); // Show alert for user
+        submitBtn.textContent = '❌ Try Again';
+        submitBtn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+
+        setTimeout(() => {
+          submitBtn.classList.remove('loading');
+          submitBtn.textContent = '➕ Add Menu Item';
+          submitBtn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+        }, 3000);
       }
     });
+
+    // Update menu preview
+    function updateMenuPreview() {
+      if (menuItems.length === 0) {
+        menuPreview.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">🍽️</div>
+            <p>No menu items yet. Add your first item above!</p>
+          </div>
+        `;
+      } else {
+        menuPreview.innerHTML = menuItems.map(item => `
+          <div class="menu-item">
+            <div style="display: flex; justify-content: space-between; align-items: start;">
+              <h4>${item.item}</h4>
+              <span class="price">$${item.price}</span>
+            </div>
+            ${item.description ? `<p class="description">${item.description}</p>` : ''}
+          </div>
+        `).join('');
+      }
+    }
 
     // Finish setup
     finishBtn.addEventListener('click', () => {
-      if (restaurantId) {
-        window.location.href = '/dashboard.html';
-      } else {
-        alert('Please complete your restaurant profile first.');
+      if (restaurantId && menuItems.length > 0) {
+        // Only redirect if at least one menu item is added
+        finishBtn.classList.add('loading');
+        finishBtn.textContent = 'Launching Dashboard...';
+
+        setTimeout(() => {
+          window.location.href = '/dashboard.html';
+        }, 2000);
+      } else if (!restaurantId) {
+        alert('⚠️ Please complete your restaurant profile (Step 1) first.');
+        document.getElementById('step1').scrollIntoView({ behavior: 'smooth' });
+      } else if (menuItems.length === 0) {
+        alert('⚠️ Please add at least one menu item (Step 2) before finishing.');
+        document.getElementById('step2').scrollIntoView({ behavior: 'smooth' });
       }
     });
+
+    // Initialize progress on page load
+    updateProgress();
   </script>
 
 </body>
 </html>
-EOF
