@@ -204,7 +204,7 @@ async function placeOrder() {
     method: document.querySelector('input[name=method]:checked').value,
   };
 
-  const res = await fetch('process.env.REACT_APP_BACKEND_URL/api/orders', {
+  const res = await fetch('http://localhost:4000/api/orders', {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${token}`,
