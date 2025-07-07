@@ -1,0 +1,22 @@
+[build]
+  base = "frontend"
+  command = "npm run build"
+  publish = "frontend/dist"
+
+[build.environment]
+  NODE_ENV = "production"
+  NODE_OPTIONS = "--openssl-legacy-provider --max_old_space_size=4096"
+  VITE_API_URL = "your-api-url"
+
+# Comment out Lighthouse plugin for now to get deployment working
+# [[plugins]]
+#   package = "@netlify/plugin-lighthouse"
+#   [plugins.inputs]
+#     audit_url = "https://buzzaraunt.netlify.app"
+#     fail_deploy_on_score_thresholds = false
+#     output_path = "reports/lighthouse.html"
+#     [plugins.inputs.thresholds]
+#       performance = 80
+#       accessibility = 90
+#       seo = 85
+#       best-practices=85
