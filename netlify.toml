@@ -1,4 +1,7 @@
 [build]
   base = "frontend"
-command = "bash netlify-plugin-clean.sh && npm install && npm run build"
-  publish = "frontend/dist"
+  command = "npm ci && npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
