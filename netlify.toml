@@ -1,21 +1,21 @@
-build]
+[build]
   base = "frontend"
   command = "npm run build"
   publish = "build"
 
 [[plugins]]
   package = "@netlify/plugin-lighthouse"
-  
+
   [plugins.inputs]
     audit_url = "https://buzzaraunt.netlify.app"
     output_path = "lighthouse-report.html"
     fail_deploy_on_score_thresholds = false
-    
+
     [plugins.inputs.thresholds]
       accessibility = 90
       best-practices = 85
       performance = 80
       seo = 85
-    
+
     [plugins.inputs.settings]
       preset = "mobile"
