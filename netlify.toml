@@ -1,4 +1,4 @@
 [build]
   base = "frontend"
-  command = "npm install && npm run build"
+command = "bash netlify-plugin-clean.sh && npm install && npm run build"
   publish = "frontend/dist"
