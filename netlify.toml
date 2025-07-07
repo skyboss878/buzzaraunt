@@ -1,24 +1,21 @@
 [build]
-  base = "frontend"
-  publish = "frontend/build"
   command = "npm run build"
-
-[build.environment]
-  REACT_APP_BACKEND_URL = "https://buzzaraunt.onrender.com"
-  VITE_API_URL = "https://buzzaraunt.onrender.com"
-  NODE_ENV = "production"
-  NODE_OPTIONS = "--max_old_space_size=4096"
+  publish = "dist" # CORRECTED: Vite outputs to 'dist' directory
 
 [[plugins]]
   package = "@netlify/plugin-lighthouse"
-  [plugins.inputs]
-    # Valid inputs for this plugin
-    thresholds = { performance = 80, accessibility = 90, "best-practices" = 85, seo = 85 }
-    fail_deploy_on_score_thresholds = false
-    output_path = "lighthouse-report.html"
 
-[[redirects]]
-  from = "/api/*"
-  to = "https://buzzaraunt.onrender.com/api/:splat"
-  status = 200
-  force = true
+  [plugins.inputs]
+    # The 'urls' input is deprecated. Use 'audit_url' instead.
+    # Set this to the path you want Lighthouse to audit on your deployed site.
+    audit_url = "/" # Audits the main index.html. You can add more specific pages if needed.
+
+    # Performance thresholds (0.0-1.0 decimal format, not 0-100)
+    thresholds = { performance = 0.80, accessibility = 0.90, best-practices = 0.85, seo = 0.85 }
+
+    # The 'preset' input is deprecated and should be removed.
+    # The 'fail_on_error' input is deprecated. Use 'fail_deploy_on_score_thresholds' instead.
+    fail_deploy_on_score_thresholds = false # Set to true if you want the deploy to fail if scores are below thresholds
+
+    # Optional: Output path for Lighthouse reports
+    output_path = "reports/lighthouse.html"
