@@ -1,34 +1,24 @@
 [build]
+  base = "frontend"
+  publish = "frontend/build"
   command = "npm run build"
-  publish = "dist"
 
-[dev]
-  command = "npm run dev"
-  port = 8888
-  targetPort = 3000
+[build.environment]
+  REACT_APP_BACKEND_URL = "https://buzzaraunt.onrender.com"
+  VITE_API_URL = "https://buzzaraunt.onrender.com"
+  NODE_ENV = "production"
+  NODE_OPTIONS = "--max_old_space_size=4096"
 
 [[plugins]]
   package = "@netlify/plugin-lighthouse"
-
   [plugins.inputs]
-    audit_url = "https://buzzaraunt.netlify.app"
+    # Valid inputs for this plugin
+    thresholds = { performance = 80, accessibility = 90, "best-practices" = 85, seo = 85 }
     fail_deploy_on_score_thresholds = false
+    output_path = "lighthouse-report.html"
 
-    [plugins.inputs.thresholds]
-      performance = 80
-      accessibility = 90
-      best-practices = 85
-      seo = 85
-
-# 🔁 Proxy all /api requests to your backend on Render
 [[redirects]]
   from = "/api/*"
   to = "https://buzzaraunt.onrender.com/api/:splat"
   status = 200
   force = true
-
-# 🔁 Fallback redirect for SPA routing
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
