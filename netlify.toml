@@ -1,24 +1,16 @@
-[build]
-  base = "frontend"
-  command = "npm run build"
-  publish = "frontend/build"
-  environment = { 
-    NODE_ENV = "production",
-    NODE_OPTIONS = "--max_old_space_size=4096",
-    REACT_APP_BACKEND_URL = "https://your-backend-url.com",
-    VITE_API_URL = "https://your-backend-url.com"
-  }
-
-[[plugins]]
+plugins]]
   package = "@netlify/plugin-lighthouse"
+  
   [plugins.inputs]
     audit_url = "https://buzzaraunt.netlify.app"
-    thresholds = { performance = 80, accessibility = 90, "best-practices" = 85, seo = 85 }
+    output_path = "lighthouse-report.html"
     fail_deploy_on_score_thresholds = false
-
-[[plugins]]
-  package = "@netlify/plugin-lighthouse"
-  [plugins.inputs]
-    audit_url = "https://buzzaraunt.netlify.app/promos"
-    thresholds = { performance = 80, accessibility = 90, "best-practices" = 85, seo = 85 }
-    fail_deploy_on_score_thresholds = false
+    
+    [plugins.inputs.thresholds]
+      accessibility = 90
+      best-practices = 85
+      performance = 80
+      seo = 85
+    
+    [plugins.inputs.settings]
+      preset = "mobile"
