@@ -1,4 +1,9 @@
-plugins]]
+build]
+  base = "frontend"
+  command = "npm run build"
+  publish = "build"
+
+[[plugins]]
   package = "@netlify/plugin-lighthouse"
   
   [plugins.inputs]
