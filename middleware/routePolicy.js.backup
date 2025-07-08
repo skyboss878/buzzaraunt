@@ -1,0 +1,26 @@
+const fs = require('fs');
+const path = require('path');
+const metadata = JSON.parse(
+  fs.readFileSync(path.join(__dirname, '../routesMetadata.json'), 'utf8')
+);
+
+module.exports = (req, res, next) => {
+  const route = metadata.find(r => req.originalUrl.startsWith(r.path));
+  if (!route) return next(); // Not protected by plan
+
+  const user = req.user;
+  if (!user) return res.status(401).json({ message: 'Unauthorized' });
+
+  const allowed = route.plans.includes(user.plan) || route.plans.includes('all');
+  if (!allowed) {
+    return res.status(403).json({
+      success: false,
+      message: `Your current plan (${user.plan}) doesn't allow access to this feature`
+    });
+  }
+
+  // Attach route metadata (like aiGeneration flag) if needed in controller
+  req.routeMeta = route;
+
+  next();
+};

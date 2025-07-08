@@ -1,12 +1,12 @@
 // ~/buzzaraunt/backend/routes/deliveryRoutes.js
 const express = require('express');
 const router = express.Router();
-const authMiddleware = require('../middleware/authMiddleware');
+const verifyToken = require('../middleware/verifyToken');
 const checkPlan = require('../middleware/plan');
 const deliveryController = require('../controllers/deliveryController');
 
 // All delivery settings routes require authentication
-router.use(authMiddleware);
+router.use(verifyToken);
 
 // Update delivery settings
 router.post('/update', checkPlan(['enterprise']), deliveryController.updateDeliverySettings); // Delivery is Enterprise/Agency exclusive

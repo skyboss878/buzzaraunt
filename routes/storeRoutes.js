@@ -1,12 +1,12 @@
 // ~/buzzaraunt/backend/routes/storeRoutes.js
 const express = require('express');
 const router = express.Router();
-const authMiddleware = require('../middleware/authMiddleware');
+const verifyToken = require('../middleware/verifyToken');
 const checkPlan = require('../middleware/plan');
 const storeController = require('../controllers/storeController');
 
 // All store settings routes require authentication
-router.use(authMiddleware);
+router.use(verifyToken);
 
 // Update store settings
 router.post('/update', checkPlan(['pro', 'enterprise']), storeController.updateStoreSettings);

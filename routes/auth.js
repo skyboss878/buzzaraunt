@@ -1,4 +1,5 @@
 const express = require('express');
+const verifyToken = require("../middleware/verifyToken");
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');

@@ -1,0 +1,128 @@
+[
+  {
+    "path": "/api/auth/register",
+    "plans": ["all"],
+    "aiGeneration": false,
+    "authRequired": false
+  },
+  {
+    "path": "/api/auth/login",
+    "plans": ["all"],
+    "aiGeneration": false,
+    "authRequired": false
+  },
+  {
+    "path": "/api/orders",
+    "plans": ["basic", "pro", "enterprise"],
+    "aiGeneration": true,
+    "authRequired": true
+  },
+  {
+    "path": "/api/promos/generate",
+    "plans": ["pro", "enterprise"],
+    "aiGeneration": true,
+    "authRequired": true
+  },
+  {
+    "path": "/api/promos",
+    "plans": ["basic", "pro", "enterprise"],
+    "aiGeneration": false,
+    "authRequired": true
+  },
+  {
+    "path": "/api/promos/:id",
+    "plans": ["pro", "enterprise"],
+    "aiGeneration": false,
+    "authRequired": true
+  },
+  {
+    "path": "/api/promoRoutes/generate",
+    "plans": ["pro", "enterprise"],
+    "aiGeneration": true,
+    "authRequired": true
+  },
+  {
+    "path": "/api/promoRoutes",
+    "plans": ["basic", "pro", "enterprise"],
+    "aiGeneration": false,
+    "authRequired": true
+  },
+  {
+    "path": "/api/promoRoutes/:id",
+    "plans": ["pro", "enterprise"],
+    "aiGeneration": false,
+    "authRequired": true
+  },
+  {
+    "path": "/api/orderRoutes",
+    "plans": ["basic", "pro", "enterprise"],
+    "aiGeneration": false,
+    "authRequired": true
+  },
+  {
+    "path": "/api/restaurant/create",
+    "plans": ["basic", "pro", "enterprise"],
+    "aiGeneration": false,
+    "authRequired": true
+  },
+  {
+    "path": "/api/restaurant",
+    "plans": ["basic", "pro", "enterprise"],
+    "aiGeneration": false,
+    "authRequired": true
+  },
+  {
+    "path": "/api/restaurant/:restaurantId",
+    "plans": ["pro", "enterprise"],
+    "aiGeneration": false,
+    "authRequired": true
+  },
+  {
+    "path": "/api/menu/add",
+    "plans": ["basic", "pro", "enterprise"],
+    "aiGeneration": true,
+    "authRequired": true
+  },
+  {
+    "path": "/api/menu/:restaurantId",
+    "plans": ["basic", "pro", "enterprise"],
+    "aiGeneration": false,
+    "authRequired": true
+  },
+  {
+    "path": "/api/menu/:itemId",
+    "plans": ["pro", "enterprise"],
+    "aiGeneration": false,
+    "authRequired": true
+  },
+  {
+    "path": "/api/store/update",
+    "plans": ["pro", "enterprise"],
+    "aiGeneration": false,
+    "authRequired": true
+  },
+  {
+    "path": "/api/store",
+    "plans": ["pro", "enterprise"],
+    "aiGeneration": false,
+    "authRequired": true
+  },
+  {
+    "path": "/api/delivery/update",
+    "plans": ["enterprise"],
+    "aiGeneration": false,
+    "authRequired": true
+  },
+  {
+    "path": "/api/delivery",
+    "plans": ["enterprise"],
+    "aiGeneration": false,
+    "authRequired": true
+  },
+  {
+    "path": "/api/protected/some-other-protected-action",
+    "plans": ["pro"],
+    "aiGeneration": false,
+    "authRequired": true
+  }
+]

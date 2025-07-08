@@ -1,85 +1,116 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-
-// 🔗 Import routes
-const promoRoutes = require('./routes/promos');
-const authRoutes = require('./routes/auth');
-const protectedRoutes = require('./routes/protected');
-
-const cors = require('cors');
 const app = express();
-app.use(cors({
-    origin: ['https://buzzaraunt.netlify.app', 'http://localhost:3000']
-}));
-app.use(cors({
-    origin: ['https://buzzaraunt.netlify.app', 'http://localhost:3000']
-}));
-app.use(cors({
-    origin: 'https://buzzaraunt.netlify.app'
-}));
-const PORT = process.env.PORT || 4000;
-
-// ✅ CORS: Explicit configuration
-app.use(cors({
+const authRoutes = require('./routes/authRoutes');
+const orderRoutes = require('./routes/orderRoutes');
+const menuRoutes = require('./routes/menuRoutes');
+const promoRoutes = require('./routes/promoRoutes');
+const restaurantRoutes = require('./routes/restaurantRoutes');const storeRoutes = require('./routes/storeRoutes');
+const deliveryRoutes = require('./routes/deliveryRoutes');
+const paymentRoutes = require('./routes/paymentRoutes');
+const routePolicy = require('./middleware/routePolicy');
+const helmet = require('helmet');
+app.use(helmet());
+app.use(routePolicy); // <-- apply before your route declarations
+const protectedRoutes = require('./routes/protected');
+// CORS configuration
+const corsOptions = {
   origin: [
-    'http://localhost:37517',
-    'http://localhost:3000',
-    'http://127.0.0.1:3000',
-    'https://buzzaraunt.netlify.app'
+    'https://buzzaraunt.netlify.app', // YOUR DEPLOYED NETLIFY FRONTEND URL IS HERE
+'https://buzzaraunt.onrender.com', // ✅ Clean, correct origin
+    'http://localhost:5173',            // For your local Vite dev server (frontend)
+    'http://localhost:3000'             // For your local backend development
   ],
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
-}));
+  credentials: true, // Set to true if you are handling cookies/sessions (e.g., for authentication)
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization'] // Allowed headers
+};
 
-// ✅ Handle preflight requests explicitly
-app.options('*', cors());
+app.use(cors(corsOptions));
 
-// ✅ Middleware
-app.use(express.json({ limit: '10mb' })); // Removed redundant bodyParser
+// Debug incoming requests
+app.use((req, res, next) => {
+  console.log(`📡 ${req.method} ${req.path} from origin: ${req.get("origin") || "no origin"}`);
+  console.log("Headers:", req.headers);
+  next();
+});
+app.use(express.json()); // Middleware to parse JSON request bodies
 
-// ✅ Routes
+// Optional: Add request logging for debugging (Add this after app.use(express.json()))
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path} - ${new Date().toISOString()}`);
+  next();
+});
+
+// Your API routes
 app.use('/api/auth', authRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/menu', menuRoutes);
 app.use('/api/promos', promoRoutes);
+app.use('/api/restaurants', restaurantRoutes);
+app.use('/api/store', storeRoutes);
+app.use('/api/delivery', deliveryRoutes);
+app.use('/api/payment', paymentRoutes);
 app.use('/api/protected', protectedRoutes);
-
-// ✅ Health check
+// Add a root endpoint for basic health checks (Add this after your /api/test route)
 app.get('/', (req, res) => {
-  res.json({ 
-    message: 'Buzzaraunt backend is running - Updated CORS',
-    timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV || 'development'
+  res.json({
+    message: 'Buzzaraunt API is running!',
+    version: '1.0.0',
+    timestamp: new Date().toISOString()
   });
 });
 
-// ✅ Global error handler
-app.use((err, req, res, next) => {
-  console.error('Error:', err.stack);
-  res.status(500).json({ 
-    error: 'Something went wrong!',
-    ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
-  });
+// This is your test endpoint to verify backend connectivity
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'Backend connected successfully!', timestamp: new Date().toISOString() });
 });
 
-// ✅ 404 handler
+// Example: A route for handling orders (uncomment and implement when ready)
+// app.post('/api/orders', (req, res) => {
+//   console.log('Received new order:', req.body);
+//   // In a real application, you would save this order to a database
+//   // and perform validation.
+//   res.status(201).json({
+//     message: 'Order placed successfully!',
+//     orderId: 'ORDER_ABC_123', // Example ID
+//     receivedData: req.body
+//   });
+// });
+
+// Example: A route for getting all promotions (uncomment and implement when ready)
+// app.get('/api/promotions', (req, res) => {
+//   // In a real application, you would fetch promotions from a database
+//   const promotions = [
+//     { id: 'p1', name: 'Summer Special', discount: '20%' },
+//     { id: 'p2', name: 'Weekend Brunch', offer: 'Free Mimosa' }
+//   ];
+
+//   res.status(200).json(promotions);
+// });
+
+
+// --- Error Handling Middleware (Add this before app.listen()) ---
+
+// Handle 404 routes (must be after all other routes)
 app.use('*', (req, res) => {
-  res.status(404).json({ error: 'Route not found' });
+  res.status(404).json({ message: 'API endpoint not found' });
 });
 
-// ✅ Start server
+// Generic error handling middleware (must be last middleware before app.listen)
+app.use((err, req, res, next) => {
+  console.error(err.stack); // Log the error stack for debugging
+  res.status(500).json({ message: 'Something went wrong!' }); // Send a generic error message to client
+});
+
+// --- End Error Handling Middleware ---
+
+
+// Start server
+const PORT = process.env.PORT || 3000; // Use port from environment variable (for Render) or 3000 locally
 app.listen(PORT, () => {
-  console.log(`✅ Buzzaraunt backend running at http://localhost:${PORT}`);
-  console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`Server running on port ${PORT}`);
+  console.log('CORS origins configured:', corsOptions.origin.join(', '));
 });
 
-// ✅ Graceful shutdown
-process.on('SIGTERM', () => {
-  console.log('🛑 SIGTERM received, shutting down gracefully');
-  process.exit(0);
-});
-
-process.on('SIGINT', () => {
-  console.log('🛑 SIGINT received, shutting down gracefully');
-  process.exit(0);
-});

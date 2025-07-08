@@ -1,5 +1,5 @@
 {
-  "name": "backend",
+  "name": "y",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Skyboss878 <elliottnathan800@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -17,10 +17,23 @@
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "express-list-endpoints": "^7.1.1",
+    "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
+    "openai": "^5.8.2",
     "pg": "^8.16.3"
   },
   "devDependencies": {
+    "http-proxy-middleware": "^3.0.5",
     "nodemon": "^3.0.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Skyboss878/my-buzzaraunt-backend.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Skyboss878/my-buzzaraunt-backend/issues"
+  },
+  "homepage": "https://github.com/Skyboss878/my-buzzaraunt-backend#readme"
 }
