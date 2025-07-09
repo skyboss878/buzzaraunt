@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  const userPlan = localStorage.getItem("userPlan");
+
+  if (userPlan === "basic") {
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+      document.getElementById("aiPromoSection").style.display = "none";
+
+      alert("Upgrade to Pro or Agency to use the AI Promo Generator.");
+
+    });
+
+  }
+
+const allowedPlans = ["basic", "pro", "enterprise"];
+const plan = localStorage.getItem("buzz_plan");
+if (!allowedPlans.includes(plan)) {
+  alert("🚫 You must subscribe to access this feature.");
+  window.location.href = "pricing.html";
+}
+  const plan = localStorage.getItem("userPlan");
+
+  if (plan !== "pro" && plan !== "agency") {
+
+    alert("⚠️ Your plan doesn't include the Promo Generator. Upgrade to access.");
+
+    window.location.href = "pricing.html";
+
+  }
+
+</script>
+<!-- SEO Meta Tags -->
+
+<meta name="description" content="Buzzaraunt – The AI-powered restaurant marketing & online ordering platform" />
+
+<meta name="keywords" content="restaurant marketing, AI menu, food delivery, online ordering, social media promos" />
+
+<meta name="author" content="Buzzaraunt AI" />
+
+<!-- Open Graph / Facebook -->
+
+<meta property="og:title" content="Buzzaraunt – AI Marketing for Restaurants" />
+
+<meta property="og:description" content="Create viral promos, schedule AI-powered posts, and manage online orders from one dashboard." />
+
+<meta property="og:image" content="https://buzzaraunt.com/og-image.jpg" />
+
+<meta property="og:url" content="https://buzzaraunt.com" />
+
+<meta property="og:type" content="website" />
+
+<!-- Twitter -->
+
+<meta name="twitter:card" content="summary_large_image" />
+
+<meta name="twitter:title" content="Buzzaraunt – AI for Restaurants" />
+
+<meta name="twitter:description" content="Your full-service AI marketing and ordering solution." />
+
+<meta name="twitter:image" content="https://buzzaraunt.com/twitter-preview.jpg" />
+
+<!-- Favicon -->
+
+<link rel="icon" type="image/png" href="favicon.png" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Promo Generator – Buzzaraunt</title>
+  const plan = localStorage.getItem("userPlan");
+
+  if (plan !== "pro" && plan !== "agency") {
+
+    alert("⚠️ Your plan doesn't include the Promo Generator. Upgrade to access.");
+
+    window.location.href = "pricing.html";
+
+  }
+
+  <script src="https://js.puter.com/v2/"></script>
+  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" />
+<link rel="stylesheet" href="/src/styles/styles.css" />
+</head>
+<body class="bg-yellow-50 text-gray-900">
+<script>
+  const userPlan = localStorage.getItem("userPlan");
+
+  if (userPlan === "basic") {
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+      document.getElementById("aiPromoSection").style.display = "none";
+
+      alert("Upgrade to Pro or Agency to use the AI Promo Generator.");
+
+    });
+
+  }
+
+  const plan = localStorage.getItem("userPlan");
+
+  if (!["pro", "agency"].includes(plan)) {
+
+    alert("🚫 Upgrade to Pro or Agency to use this feature.");
+
+    window.location.href = "pricing.html";
+
+  }
+
+  const plan = localStorage.getItem("userPlan");
+
+  if (plan !== "pro" && plan !== "agency") {
+
+    alert("⚠️ Your plan doesn't include the Promo Generator. Upgrade to access.");
+
+    window.location.href = "pricing.html";
+
+  }
+
+</script>
+
+  <div class="max-w-xl mx-auto p-6">
+    <h1 class="text-3xl font-bold text-yellow-600 mb-4">✨ AI Promo Generator</h1>
+
+    <!-- Promo Type -->
+    <label class="block font-semibold mb-1">Promo Type:</label>
+    <select id="promoType" class="w-full p-2 border rounded mb-4">
+      <option value="breakfast">Breakfast Special</option>
+      <option value="lunch">Lunch Deal</option>
+      <option value="happy_hour">Happy Hour</option>
+      <option value="dinner">Dinner Special</option>
+      <option value="custom">Custom Promo</option>
+    </select>
+
+    <!-- Custom Input -->
+    <textarea id="customInput" placeholder="Describe your custom promo (optional)" class="w-full p-2 border rounded mb-4" style="display:none"></textarea>
+
+    <button onclick="generatePromo()" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded w-full">🎯 Generate with AI</button>
+
+    <!-- Output -->
+    <div id="output" class="mt-6 hidden">
+      <h2 class="text-xl font-bold mb-2">📣 Generated Promo</h2>
+      <img id="promoImage" class="w-full rounded mb-4 hidden" alt="Promo image"/>
+      <p class="text-lg mb-2" id="captionText">...</p>
+      <p class="text-sm text-gray-600 mb-1"><strong>Voiceover:</strong> <span id="voiceLink"></span></p>
+      <div class="flex gap-4 mt-4">
+        <button onclick="downloadPromo()" class="bg-green-600 text-white px-4 py-2 rounded">⬇️ Download</button>
+        <button onclick="sharePromo()" class="bg-blue-600 text-white px-4 py-2 rounded">📲 Share</button>
+      </div>
+    </div>
+
+    <hr class="my-6" />
+    <h2 class="text-lg font-bold mb-2">📅 Schedule Promo</h2>
+    <label class="block text-sm font-semibold mb-1">Select date & time to post:</label>
+    <input type="datetime-local" id="scheduleTime" class="w-full p-2 border rounded mb-2" />
+    <button onclick="saveScheduledPromo()" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded w-full">
+      🕒 Save Scheduled Promo
+    </button>
+    <div id="saveMsg" class="text-sm text-green-600 mt-2 hidden">✅ Promo scheduled successfully!</div>
+  </div>
+
+  <script>
+  const userPlan = localStorage.getItem("userPlan");
+
+  if (userPlan === "basic") {
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+      document.getElementById("aiPromoSection").style.display = "none";
+
+      alert("Upgrade to Pro or Agency to use the AI Promo Generator.");
+
+    });
+
+  }
+
+    const promoTypeEl = document.getElementById('promoType');
+    const customInput = document.getElementById('customInput');
+
+    promoTypeEl.addEventListener('change', () => {
+      customInput.style.display = promoTypeEl.value === 'custom' ? 'block' : 'none';
+    });
+
+    async function generatePromo() {
+      const type = promoTypeEl.value;
+      const custom = customInput.value;
+
+      const idea = type === 'custom'
+        ? custom
+        : {
+            breakfast: "Breakfast Special with coffee, eggs, bacon and toast",
+            lunch: "Lunch Combo under $10 with burger and fries",
+            happy_hour: "Happy Hour deal with drinks, appetizers and friends",
+            dinner: "Dinner special with pasta, steak or wine"
+          }[type];
+
+      const prompt = `
+You're an expert food marketing AI. Write a short, catchy social media post for a restaurant.
+Include:
+- Hook (emojis okay)
+- Caption (1–2 lines max)
+- Hashtags
+Promo: ${idea}
+Restaurant: Buzzaraunt
+Style: Energetic, viral, bold
+      `;
+
+      document.getElementById('output').classList.remove('hidden');
+      document.getElementById('captionText').textContent = "Generating...";
+
+      const textResult = await puter.ai.generate({ prompt });
+      document.getElementById('captionText').textContent = textResult.text;
+
+      const voiceResult = await puter.ai.voice({ text: textResult.text });
+      document.getElementById('voiceLink').innerHTML = \`<a href="\${voiceResult.url}" target="_blank" class="text-blue-600 underline">🔊 Play Voiceover</a>\`;
+
+      const imgPrompt = \`A bold food promotion visual: \${idea}, vivid colors, social media ad style\`;
+      const image = await puter.ai.image({ prompt: imgPrompt, size: '512x512' });
+      const promoImage = document.getElementById('promoImage');
+      promoImage.src = image.url;
+      promoImage.classList.remove('hidden');
+    }
+
+    function downloadPromo() {
+      alert("Download will capture image + voice + text (future enhancement).");
+    }
+
+    function sharePromo() {
+      alert("Use Web Share or export to Instagram/Facebook (future).");
+    }
+
+    async function saveScheduledPromo() {
+      const token = localStorage.getItem('token');
+      if (!token) return alert("You must be logged in.");
+
+      const promoData = {
+        caption: document.getElementById('captionText').textContent,
+        music: 'Auto-generated',
+        voiceLink: document.getElementById('voiceLink')?.querySelector('a')?.href,
+        imageSrc: document.getElementById('promoImage').src,
+        scheduledTime: document.getElementById('scheduleTime').value
+      };
+
+      const res = await fetch('/api/promos', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: \`Bearer \${token}\`
+        },
+        body: JSON.stringify(promoData)
+      });
+
+      const result = await res.json();
+      if (result.success) {
+        document.getElementById('saveMsg').classList.remove('hidden');
+      } else {
+        alert(result.message || "Error saving promo");
+      }
+    }
+  const plan = localStorage.getItem("userPlan");
+
+  if (plan !== "pro" && plan !== "agency") {
+
+    alert("⚠️ Your plan doesn't include the Promo Generator. Upgrade to access.");
+
+    window.location.href = "pricing.html";
+
+  }
+
+  </script>
+<script>
+const user = JSON.parse(localStorage.getItem("user"));
+const allowedPlans = ["basic","pro","enterprise"];
+if (!user || !allowedPlans.includes(user.plan)) {
+alert("🚫 Access denied: Please subscribe to a plan.");
+window.location.href = "pricing.html";
+}
+</script>
+</body>
+</html>

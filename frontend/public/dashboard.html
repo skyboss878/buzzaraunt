@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="description" content="Buzzaraunt – The AI-powered restaurant marketing & online ordering platform" />
+  <meta name="keywords" content="restaurant marketing, AI menu, food delivery, online ordering, social media promos" />
+  <meta name="author" content="Buzzaraunt AI" />
+
+  <meta property="og:title" content="Buzzaraunt – AI Marketing for Restaurants" />
+  <meta property="og:description" content="Create viral promos, schedule AI-powered posts, and manage online orders from one dashboard." />
+  <meta property="og:image" content="https://buzzaraunt.com/og-image.jpg" />
+  <meta property="og:url" content="https://buzzaraunt.com" />
+  <meta property="og:type" content="website" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Buzzaraunt – AI for Restaurants" />
+  <meta name="twitter:description" content="Your full-service AI marketing and ordering solution." />
+  <meta name="twitter:image" content="https://buzzaraunt.com/twitter-preview.jpg" />
+
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buzzaraunt Dashboard</title>
+
+  <link rel="preload" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"></noscript>
+  <link rel="stylesheet" href="/src/styles/styles.css" /> </head>
+
+<body class="bg-gray-50 text-gray-900">
+  <script>
+    const token = localStorage.getItem("token");
+    const userString = localStorage.getItem("user");
+    let user = null;
+    let userPlan = null; // Renamed to avoid conflict with 'plan' variable in feature checks
+
+    // Safely parse user data from localStorage
+    if (userString) {
+      try {
+        user = JSON.parse(userString);
+        userPlan = user.plan;
+      } catch (e) {
+        console.error("Error parsing user data from localStorage:", e);
+        // Clear corrupt data if parsing fails
+        localStorage.removeItem("user");
+      }
+    }
+
+    // 1. Check if user is logged in
+    if (!token || !user) {
+      alert("⚠️ You must be logged in to access this page.");
+      window.location.href = "/login.html";
+    }
+
+    // 2. Check if the user's plan is allowed for dashboard access
+    // 'enterprise' plan from register.html maps to 'agency' in dashboard context for features
+    const allowedDashboardPlans = ["basic", "pro", "enterprise"];
+    if (!userPlan || !allowedDashboardPlans.includes(userPlan)) {
+      alert("🚫 Access denied: Please subscribe to a valid plan to access the dashboard.");
+      window.location.href = "pricing.html";
+    }
+
+    // Comprehensive logout function
+    function logout() {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("restaurantId");
+      alert("✅ Logged out successfully.");
+      window.location.href = "/login.html"; // Redirect to login page
+    }
+
+    // DOMContentLoaded ensures elements exist before trying to access them
+    document.addEventListener("DOMContentLoaded", () => {
+      // Display user email if available
+      const userEmailSpan = document.getElementById("userEmail");
+      if (userEmailSpan && user && user.email) {
+        userEmailSpan.textContent = user.email;
+      } else if (userEmailSpan) {
+        userEmailSpan.textContent = "N/A";
+      }
+
+      // --- Feature Access Control Logic ---
+      const promoBtn = document.getElementById("promoBtn");
+      const storeBtn = document.getElementById("storeBtn");
+      const deliveryBtn = document.getElementById("deliveryBtn");
+
+      // Function to check access and handle redirection
+      // requiredPlan can be 'basic', 'pro', or 'enterprise'
+      function handleFeatureClick(event, requiredPlan) {
+        event.preventDefault(); // Prevent default link navigation
+
+        let hasAccess = false;
+        if (userPlan === "enterprise") {
+          hasAccess = true;
+        } else if (userPlan === "pro" && (requiredPlan === "basic" || requiredPlan === "pro")) {
+          hasAccess = true;
+        } else if (userPlan === "basic" && requiredPlan === "basic") {
+          hasAccess = true;
+        }
+
+        if (hasAccess) {
+          window.location.href = event.currentTarget.href; // Proceed to the page
+        } else {
+          alert(`🚫 To access this feature, please upgrade your plan to ${requiredPlan.charAt(0).toUpperCase() + requiredPlan.slice(1)} or higher.`);
+          window.location.href = "/pricing.html"; // Redirect to pricing page
+        }
+      }
+
+      // Attach event listeners to the buttons/links
+      if (promoBtn) {
+        promoBtn.addEventListener("click", (e) => handleFeatureClick(e, "pro")); // Generate Promo requires Pro
+      }
+      if (storeBtn) {
+        storeBtn.addEventListener("click", (e) => handleFeatureClick(e, "pro")); // Manage Store requires Pro
+      }
+      if (deliveryBtn) {
+        deliveryBtn.addEventListener("click", (e) => handleFeatureClick(e, "enterprise")); // Delivery requires Enterprise/Agency
+      }
+      // For 'Scheduled Promos' (promos.html), it's generally tied to promo generation,
+      // so we'll assume it also requires 'pro'.
+      const scheduledPromosBtn = document.querySelector('a[href="promos.html"]');
+      if (scheduledPromosBtn) {
+        scheduledPromosBtn.addEventListener("click", (e) => handleFeatureClick(e, "pro"));
+      }
+      // Add similar checks for any other links directly from dashboard if needed
+    });
+  </script>
+
+  <div class="max-w-4xl mx-auto p-6">
+    <h1 class="text-4xl font-bold text-yellow-600 mb-6">🍽️ Buzzaraunt Dashboard</h1>
+    <p class="mb-4 text-gray-700">Welcome to your restaurant's control center. Use the tools below to grow your brand with AI promotions and scheduling.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <a href="promo.html" id="promoBtn" class="block bg-yellow-100 hover:bg-yellow-200 rounded-lg p-6 shadow transition">
+        <h2 class="text-2xl font-semibold mb-2">🎯 Generate Promo</h2>
+        <p>Create viral posts with AI including voiceovers, captions, music, images and hashtags.</p>
+      </a>
+      <a href="promos.html" class="block bg-purple-100 hover:bg-purple-200 rounded-lg p-6 shadow transition">
+        <h2 class="text-2xl font-semibold mb-2">📅 Scheduled Promos</h2>
+        <p>Manage and schedule your upcoming social media content.</p>
+      </a>
+
+      <a href="store.html" id="storeBtn" class="block bg-green-100 hover:bg-green-200 rounded-lg p-6 shadow transition">
+        <h2 class="text-2xl font-semibold mb-2">🏪 Manage Store</h2>
+        <p>Edit your menu, update prices, and manage ordering options.</p>
+      </a>
+      <a href="delivery.html" id="deliveryBtn" class="block bg-blue-100 hover:bg-blue-200 rounded-lg p-6 shadow transition">
+        <h2 class="text-2xl font-semibold mb-2">🚚 Delivery Orders</h2>
+        <p>Track, fulfill, and manage incoming online orders in real time.</p>
+      </a>
+    </div>
+
+    <button onclick="logout()" class="mt-6 px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition font-semibold">
+      Logout
+    </button>
+  </div>
+
+</body>
+</html>
